@@ -1,47 +1,105 @@
 /**
  * In-memory DB that mimics drizzle-orm API for the prototype.
- * Supports the exact queries used in the app, with no external DB.
+ * File-persistent fallback to survive Turbopack worker restarts.
  */
 
 import * as schema from "./schema";
+import * as fs from "fs";
+import * as path from "path";
 
 type Row = Record<string, any>;
 
+const DATA_FILE = path.join(process.cwd(), ".memory-data.json");
+
+type MemData = {
+  users: Row[];
+  blacklist_records: Row[];
+  release_cases: Row[];
+  case_documents: Row[];
+  case_events: Row[];
+  notifications: Row[];
+  nextIds: Record<string, number>;
+};
+
 type GlobalMem = typeof globalThis & {
-  __arenaMemData?: {
-    users: Row[];
-    blacklist_records: Row[];
-    release_cases: Row[];
-    case_documents: Row[];
-    case_events: Row[];
-    notifications: Row[];
-    nextIds: Record<string, number>;
-  };
+  __arenaMemData?: MemData;
   __arenaMemColumnMap?: WeakMap<any, string>;
   __arenaMemTableMap?: WeakMap<any, string>;
 };
 
 const g = globalThis as GlobalMem;
 
-function getData() {
-  if (!g.__arenaMemData) {
-    g.__arenaMemData = {
-      users: [],
-      blacklist_records: [],
-      release_cases: [],
-      case_documents: [],
-      case_events: [],
-      notifications: [],
-      nextIds: {
-        blacklist_records: 1,
-        release_cases: 1,
-        case_documents: 1,
-        case_events: 1,
-        notifications: 1,
-      },
-    };
+function loadFromFile(): MemData | null {
+  try {
+    if (fs.existsSync(DATA_FILE)) {
+      const raw = fs.readFileSync(DATA_FILE, "utf-8");
+      if (!raw || !raw.trim()) return null;
+      const parsed = JSON.parse(raw);
+      // Revive dates: try to parse ISO strings for known date fields
+      const dateFields = ["blacklistedAt", "releasedAt", "temporaryUntil", "createdAt", "updatedAt", "submittedAt", "closedAt"];
+      const revive = (obj: any) => {
+        if (!obj || typeof obj !== "object") return obj;
+        for (const k of Object.keys(obj)) {
+          if (dateFields.includes(k) && typeof obj[k] === "string") {
+            const d = new Date(obj[k]);
+            if (!isNaN(d.getTime())) obj[k] = d;
+          } else if (typeof obj[k] === "object") {
+            revive(obj[k]);
+          }
+        }
+      };
+      for (const tbl of ["users", "blacklist_records", "release_cases", "case_documents", "case_events", "notifications"] as const) {
+        if (Array.isArray((parsed as any)[tbl])) {
+          for (const r of (parsed as any)[tbl]) revive(r);
+        }
+      }
+      return parsed as MemData;
+    }
+  } catch (e) {
+    console.warn("[memdb] load file failed", e);
   }
-  return g.__arenaMemData;
+  return null;
+}
+
+function saveToFile(data: MemData) {
+  try {
+    const tmp = DATA_FILE + ".tmp";
+    fs.writeFileSync(tmp, JSON.stringify(data), "utf-8");
+    fs.renameSync(tmp, DATA_FILE);
+  } catch (e) {
+    console.warn("[memdb] save file failed", e);
+  }
+}
+
+function getData(): MemData {
+  if (g.__arenaMemData) return g.__arenaMemData;
+  const fromFile = loadFromFile();
+  if (fromFile) {
+    g.__arenaMemData = fromFile;
+    return fromFile;
+  }
+  const empty: MemData = {
+    users: [],
+    blacklist_records: [],
+    release_cases: [],
+    case_documents: [],
+    case_events: [],
+    notifications: [],
+    nextIds: {
+      blacklist_records: 1,
+      release_cases: 1,
+      case_documents: 1,
+      case_events: 1,
+      notifications: 1,
+    },
+  };
+  g.__arenaMemData = empty;
+  return empty;
+}
+
+function persist() {
+  const data = getData();
+  saveToFile(data);
 }
 
 function buildColumnMap() {
@@ -49,7 +107,6 @@ function buildColumnMap() {
   const map = new WeakMap<any, string>();
   const tableMap = new WeakMap<any, string>();
 
-  // Map tables to keys
   const tableToKey: Record<string, string> = {
     users: "users",
     blacklistRecords: "blacklist_records",
@@ -65,9 +122,7 @@ function buildColumnMap() {
     if (typeof table === "object" && table !== null) {
       tableMap.set(table as any, key);
       for (const [jsKey, col] of Object.entries(table as any)) {
-        if (col && typeof col === "object" && ("name" in col || "column" in col || typeof col === "object")) {
-          // drizzle column has .name (db column) and we want jsKey
-          // Store mapping
+        if (col && typeof col === "object") {
           try {
             map.set(col as any, jsKey);
           } catch {}
@@ -88,26 +143,23 @@ function getTableMap() {
 function getJsKey(col: any): string {
   if (!col) return "";
   const map = buildColumnMap();
-  return map.get(col) || col.name || "";
+  return map.get(col) || col?.name || "";
 }
 
 function getTableKey(table: any): string {
   const map = getTableMap();
   const mapped = map.get(table);
   if (mapped) return mapped;
-  // Fallback: detect by column presence
   if (!table || typeof table !== "object") return "";
   const keys = Object.keys(table);
   if (keys.includes("blacklistNumber") && keys.includes("cifId")) return "blacklist_records";
   if (keys.includes("reference") && keys.includes("releaseType")) return "release_cases";
   if (keys.includes("requirementKey") && keys.includes("caseId")) {
-    // could be case_documents or case_events – distinguish by label vs action
     if (keys.includes("label") && keys.includes("fileName")) return "case_documents";
     if (keys.includes("action") && keys.includes("actorName")) return "case_events";
   }
   if (keys.includes("message") && keys.includes("userId")) return "notifications";
   if (keys.includes("role") && keys.includes("unit")) return "users";
-  // Try by checking if table has id and name
   if (keys.includes("id") && keys.includes("name") && keys.includes("role")) return "users";
   return "";
 }
@@ -123,7 +175,25 @@ function getTableArray(table: any): Row[] {
 }
 
 function cloneRow(row: Row): Row {
-  return JSON.parse(JSON.stringify(row));
+  if (row === undefined || row === null) return row;
+  try {
+    if (typeof (globalThis as any).structuredClone === "function") {
+      return (globalThis as any).structuredClone(row);
+    }
+  } catch {}
+  // Shallow clone + deep clone for known nested objects without JSON.parse
+  const out: Row = {};
+  for (const k of Object.keys(row)) {
+    const v = row[k];
+    if (Array.isArray(v)) {
+      out[k] = v.map((el: any) => (typeof el === "object" && el !== null ? { ...el } : el));
+    } else if (v && typeof v === "object" && !(v instanceof Date)) {
+      out[k] = { ...v };
+    } else {
+      out[k] = v;
+    }
+  }
+  return out;
 }
 
 // Predicate helpers
@@ -131,8 +201,7 @@ export function eq(col: any, value: any) {
   const jsKey = getJsKey(col);
   const dbName = col?.name;
   return (row: Row) => {
-    const v = row[jsKey] !== undefined ? row[jsKey] : dbName ? row[dbName] : undefined;
-    // Handle null/undefined comparison
+    const v = jsKey && row[jsKey] !== undefined ? row[jsKey] : dbName ? row[dbName] : undefined;
     return v === value;
   };
 }
@@ -141,7 +210,7 @@ export function ne(col: any, value: any) {
   const jsKey = getJsKey(col);
   const dbName = col?.name;
   return (row: Row) => {
-    const v = row[jsKey] !== undefined ? row[jsKey] : dbName ? row[dbName] : undefined;
+    const v = jsKey && row[jsKey] !== undefined ? row[jsKey] : dbName ? row[dbName] : undefined;
     return v !== value;
   };
 }
@@ -150,7 +219,7 @@ export function isNull(col: any) {
   const jsKey = getJsKey(col);
   const dbName = col?.name;
   return (row: Row) => {
-    const v = row[jsKey] !== undefined ? row[jsKey] : dbName ? row[dbName] : undefined;
+    const v = jsKey && row[jsKey] !== undefined ? row[jsKey] : dbName ? row[dbName] : undefined;
     return v === null || v === undefined;
   };
 }
@@ -172,7 +241,6 @@ export function asc(col: any) {
 }
 
 export function sql(strings: TemplateStringsArray, ...values: any[]) {
-  // For db.execute(sql`select 1`) – return a dummy
   return {
     strings,
     values,
@@ -213,7 +281,6 @@ class SelectBuilder {
     return this;
   }
 
-  // Make thenable so await works
   then(resolve: (value: any) => void, reject: (reason: any) => void) {
     try {
       let rows = getTableArray(this.table).map(cloneRow);
@@ -222,14 +289,13 @@ class SelectBuilder {
       }
       if (this.sort) {
         const sort = this.sort;
-        // sort can be single or array? In app it's single desc/asc
         const col = sort.col;
         const dir = sort.dir;
         const jsKey = getJsKey(col);
         const dbName = col?.name;
         rows.sort((a: Row, b: Row) => {
-          const av = a[jsKey] !== undefined ? a[jsKey] : dbName ? a[dbName] : undefined;
-          const bv = b[jsKey] !== undefined ? b[jsKey] : dbName ? b[dbName] : undefined;
+          const av = jsKey && a[jsKey] !== undefined ? a[jsKey] : dbName ? a[dbName] : undefined;
+          const bv = jsKey && b[jsKey] !== undefined ? b[jsKey] : dbName ? b[dbName] : undefined;
           if (av === bv) return 0;
           if (av === null || av === undefined) return 1;
           if (bv === null || bv === undefined) return -1;
@@ -240,21 +306,19 @@ class SelectBuilder {
       if (this.limitN !== null) {
         rows = rows.slice(0, this.limitN);
       }
-      if (this.fields) {
-        // fields is object like { id: users.id } or undefined
-        if (typeof this.fields === "object" && !Array.isArray(this.fields)) {
-          const projected = rows.map((row) => {
-            const out: Row = {};
-            for (const [alias, col] of Object.entries(this.fields)) {
-              const jsKey = getJsKey(col as any);
-              const dbName = (col as any)?.name;
-              out[alias] = row[jsKey] !== undefined ? row[jsKey] : dbName ? row[dbName] : undefined;
-            }
-            return out;
-          });
-          resolve(projected);
-          return;
-        }
+      if (this.fields && typeof this.fields === "object" && !Array.isArray(this.fields)) {
+        const projected = rows.map((row) => {
+          const out: Row = {};
+          for (const [alias, col] of Object.entries(this.fields)) {
+            const jsKey = getJsKey(col as any);
+            const dbName = (col as any)?.name;
+            const val = jsKey && row[jsKey] !== undefined ? row[jsKey] : dbName ? row[dbName] : undefined;
+            out[alias] = val;
+          }
+          return out;
+        });
+        resolve(projected);
+        return;
       }
       resolve(rows);
     } catch (e) {
@@ -289,13 +353,11 @@ class InsertBuilder {
 
     for (let v of toInsert) {
       const row = { ...v };
-      // Handle auto-increment id for tables that have it
       if (tableKey !== "users" && (row.id === undefined || row.id === null)) {
         const next = data.nextIds[tableKey] ?? 1;
         row.id = next;
         data.nextIds[tableKey] = next + 1;
       }
-      // Defaults
       if (tableKey === "blacklist_records") {
         if (!row.freezeCodes) row.freezeCodes = [];
         if (!row.parties) row.parties = [];
@@ -336,14 +398,13 @@ class InsertBuilder {
       arr.push(row);
       inserted.push(cloneRow(row));
     }
+    persist();
 
-    // Returning is thenable
     return {
       then: (resolve: (v: any) => void) => resolve(inserted),
     } as any;
   }
 
-  // If no returning() called, still thenable returning inserted
   then(resolve: (v: any) => void) {
     return this.returning().then(resolve);
   }
@@ -365,7 +426,6 @@ class UpdateBuilder {
 
   where(pred: any) {
     if (typeof pred === "function") this.predicate = pred;
-    // Execute immediately and return thenable
     const arr = getTableArray(this.table);
     let count = 0;
     for (let row of arr) {
@@ -374,6 +434,7 @@ class UpdateBuilder {
         count++;
       }
     }
+    persist();
     return {
       then: (resolve: (v: any) => void) => resolve({ count }),
     } as any;
@@ -395,18 +456,17 @@ class DeleteBuilder {
       const remaining = arr.filter((r) => !pred(r));
       (data as any)[tableKey] = remaining;
     } else {
-      // No predicate – delete all (used in seed)
       (data as any)[tableKey] = [];
       if (tableKey !== "users") {
         data.nextIds[tableKey] = 1;
       }
     }
+    persist();
     return {
       then: (resolve: (v: any) => void) => resolve({}),
     } as any;
   }
 
-  // For delete without where (seed uses await db.delete(table))
   then(resolve: (v: any) => void) {
     const data = getData();
     const tableKey = getTableKey(this.table);
@@ -414,6 +474,7 @@ class DeleteBuilder {
     if (tableKey !== "users") {
       data.nextIds[tableKey] = 1;
     }
+    persist();
     resolve({});
     return Promise.resolve({});
   }
@@ -430,9 +491,9 @@ export const db = {
 };
 
 export async function ensureReady() {
-  // Seed if empty
-  const users = await db.select().from(schema.users).limit(1);
-  if (users.length > 0) return;
+  const data = getData();
+  // If users empty, seed
+  if (data.users.length > 0) return;
 
   console.log("[db] Seeding in-memory DB");
 

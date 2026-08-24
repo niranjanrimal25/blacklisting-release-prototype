@@ -67,14 +67,26 @@ export function ActionPanel({
     fd.set("requestNumber", requestNumber);
     if (file) fd.set("attachment", file);
     start(async () => {
-      const res = await fetch(`/api/cases/${caseId}/actions`, { method: "POST", body: fd });
-      const json = await res.json();
-      if (!json.ok) {
-        setError(json.error ?? "Action failed.");
-      } else {
-        setMessage(json.message ?? "Done.");
-        reset();
-        router.refresh();
+      try {
+        const res = await fetch(`/api/cases/${caseId}/actions`, { method: "POST", body: fd });
+        let json: any;
+        try {
+          json = await res.json();
+        } catch {
+          const text = await res.text().catch(() => "");
+          console.error("Action response not JSON", res.status, text.slice(0, 500));
+          setError(`Server error ${res.status}: ${text.slice(0, 200) || "Action failed – check server logs"}`);
+          return;
+        }
+        if (!json.ok) {
+          setError(json.error ?? "Action failed.");
+        } else {
+          setMessage(json.message ?? "Done.");
+          reset();
+          router.refresh();
+        }
+      } catch (e: any) {
+        setError(e?.message ?? "Network error");
       }
     });
   }

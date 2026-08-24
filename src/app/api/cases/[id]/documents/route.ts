@@ -12,9 +12,10 @@ export async function POST(
   req: Request,
   ctx: { params: Promise<{ id: string }> }
 ) {
-  const user = await getSessionUser();
-  await ensureReady();
-  if (!user) return NextResponse.json({ ok: false, error: "Session expired — sign in again." }, { status: 401 });
+  try {
+    const user = await getSessionUser();
+    await ensureReady();
+    if (!user) return NextResponse.json({ ok: false, error: "Session expired — sign in again." }, { status: 401 });
 
   const { id } = await ctx.params;
   const caseId = Number(id);
@@ -53,14 +54,18 @@ export async function POST(
     uploadedBy: user.id,
   });
 
-  if (isSignedLetter) {
-    await logEvent({
-      caseId,
-      actor: { id: user.id, name: user.name, role: user.role },
-      action: "SIGNED_LETTER_UPLOADED",
-      remarks: `Signed/digitally-signed release letter uploaded by ${user.name}.`,
-    });
-  }
+    if (isSignedLetter) {
+      await logEvent({
+        caseId,
+        actor: { id: user.id, name: user.name, role: user.role },
+        action: "SIGNED_LETTER_UPLOADED",
+        remarks: `Signed/digitally-signed release letter uploaded by ${user.name}.`,
+      });
+    }
 
-  return NextResponse.json({ ok: true });
+    return NextResponse.json({ ok: true });
+  } catch (e: any) {
+    console.error("[documents API] error", e);
+    return NextResponse.json({ ok: false, error: e?.message ?? "Upload failed" }, { status: 500 });
+  }
 }
