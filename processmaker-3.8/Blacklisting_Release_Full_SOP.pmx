@@ -1,0 +1,755 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ProcessMaker-Project version="3.8">
+  <metadata>
+    <meta key="vendor_version">3.8.0-community</meta>
+    <meta key="vendor_version_code">BlacklistingRelease</meta>
+    <meta key="export_timestamp">1732290076</meta>
+    <meta key="export_datetime"><![CDATA[2026-08-24T00:00:00+00:00]]></meta>
+    <meta key="export_server_os">Linux</meta>
+    <meta key="workspace">workflow</meta>
+    <meta key="name">Blacklisting Release Full SOP</meta>
+    <meta key="uid">89169c3323781bae9daae1643e7077ee</meta>
+  </metadata>
+  <definition class="BPMN">
+    <table name="PROCESS">
+      <record>
+        <pro_uid>2ba29d0b6fcb536390f42382a3045581</pro_uid>
+        <prj_uid>89169c3323781bae9daae1643e7077ee</prj_uid>
+        <dia_uid>320deb1619347fbc25c4bd68faea31ca</dia_uid>
+        <pro_name>Blacklisting Release Full SOP</pro_name>
+        <pro_type>NONE</pro_type>
+        <pro_is_executable>0</pro_is_executable>
+        <pro_is_closed>0</pro_is_closed>
+        <pro_is_subprocess>0</pro_is_subprocess>
+      </record>
+    </table>
+    <table name="DIAGRAM">
+      <record>
+        <dia_uid>320deb1619347fbc25c4bd68faea31ca</dia_uid>
+        <prj_uid>89169c3323781bae9daae1643e7077ee</prj_uid>
+        <dia_name>Blacklisting Release Full SOP</dia_name>
+        <dia_is_closable>0</dia_is_closable>
+      </record>
+    </table>
+    <table name="LANESET">
+      <record>
+        <lns_uid>41c85fb9a6aa700cae32170135c6dc5e</lns_uid>
+        <prj_uid>89169c3323781bae9daae1643e7077ee</prj_uid>
+        <pro_uid>2ba29d0b6fcb536390f42382a3045581</pro_uid>
+        <lns_name>Blacklisting Release</lns_name>
+        <lns_parent_lane></lns_parent_lane>
+        <lns_is_horizontal>1</lns_is_horizontal>
+      </record>
+    </table>
+    <table name="LANE">
+      <record><lan_uid>4aa833d25bc1a584ca07d3e08fa035b7</lan_uid><prj_uid>89169c3323781bae9daae1643e7077ee</prj_uid><lns_uid>41c85fb9a6aa700cae32170135c6dc5e</lns_uid><lan_name>Initiator Branch/NPA/CSD</lan_name></record>
+      <record><lan_uid>805454f4fc7f9edeb8aac5fba7e9d150</lan_uid><prj_uid>89169c3323781bae9daae1643e7077ee</prj_uid><lns_uid>41c85fb9a6aa700cae32170135c6dc5e</lns_uid><lan_name>Reviewer OI/BM</lan_name></record>
+      <record><lan_uid>78164ebc994438286c079aeee8e15873</lan_uid><prj_uid>89169c3323781bae9daae1643e7077ee</prj_uid><lns_uid>41c85fb9a6aa700cae32170135c6dc5e</lns_uid><lan_name>BROPs Pool</lan_name></record>
+      <record><lan_uid>0065398bd81cd3a4d7592eea87d64380</lan_uid><prj_uid>89169c3323781bae9daae1643e7077ee</prj_uid><lns_uid>41c85fb9a6aa700cae32170135c6dc5e</lns_uid><lan_name>CAD/CIC</lan_name></record>
+    </table>
+    <table name="ACTIVITY">
+      <record><act_uid>90dbd9876d16025b966f3b1a5be4aa84</act_uid><prj_uid>89169c3323781bae9daae1643e7077ee</prj_uid><pro_uid>2ba29d0b6fcb536390f42382a3045581</pro_uid><act_name>Identify Blacklisted Case</act_name><act_type>TASK</act_type><act_task_type>EMPTY</act_task_type></record>
+      <record><act_uid>345a28ddc541b84328c8a76c84d88f9c</act_uid><prj_uid>89169c3323781bae9daae1643e7077ee</prj_uid><pro_uid>2ba29d0b6fcb536390f42382a3045581</pro_uid><act_name>Select Release Type &amp; Details</act_name><act_type>TASK</act_type><act_task_type>EMPTY</act_type></record>
+      <record><act_uid>b6aebf07607edd22db32be8368b59dd4</act_uid><prj_uid>89169c3323781bae9daae1643e7077ee</prj_uid><pro_uid>2ba29d0b6fcb536390f42382a3045581</pro_uid><act_name>Upload Mandatory Documents</act_name><act_type>TASK</act_type><act_task_type>EMPTY</act_type></record>
+      <record><act_uid>8ff7d855577b81150cf0440da2bca8a5</act_uid><prj_uid>89169c3323781bae9daae1643e7077ee</prj_uid><pro_uid>2ba29d0b6fcb536390f42382a3045581</pro_uid><act_name>BROPs Pool - Claim</act_name><act_type>TASK</act_type><act_task_type>EMPTY</act_type></record>
+      <record><act_uid>56a9aa436bfb70a85abb9c5e48722fed</act_uid><prj_uid>89169c3323781bae9daae1643e7077ee</prj_uid><pro_uid>2ba29d0b6fcb536390f42382a3045581</pro_uid><act_name>Review - Approve/Return/Query/Forward/Reject</act_name><act_type>TASK</act_type><act_task_type>EMPTY</act_type></record>
+      <record><act_uid>dc41b0dcf7159a261eb1052a4a603d84</act_uid><prj_uid>89169c3323781bae9daae1643e7077ee</prj_uid><pro_uid>2ba29d0b6fcb536390f42382a3045581</pro_uid><act_name>Rectify After Return</act_name><act_type>TASK</act_type><act_task_type>EMPTY</act_type></record>
+      <record><act_uid>557fdd609ad1b73e73ef240a148eb7cd</act_uid><prj_uid>89169c3323781bae9daae1643e7077ee</prj_uid><pro_uid>2ba29d0b6fcb536390f42382a3045581</pro_uid><act_name>Clarify After Query</act_name><act_type>TASK</act_type><act_task_type>EMPTY</act_type></record>
+      <record><act_uid>ccff3cef401fb965e8aea2333e86288a</act_uid><prj_uid>89169c3323781bae9daae1643e7077ee</prj_uid><pro_uid>2ba29d0b6fcb536390f42382a3045581</pro_uid><act_name>Letter - Initiator Signs</act_name><act_type>TASK</act_type><act_task_type>EMPTY</act_type></record>
+      <record><act_uid>c2ade89a46bd58e293ae702169565931</act_uid><prj_uid>89169c3323781bae9daae1643e7077ee</prj_uid><pro_uid>2ba29d0b6fcb536390f42382a3045581</pro_uid><act_name>Letter - CAD Completes</act_name><act_type>TASK</act_type><act_task_type>EMPTY</act_type></record>
+      <record><act_uid>910d84c0aadfd96ab5ac889073d7b11b</act_uid><prj_uid>89169c3323781bae9daae1643e7077ee</prj_uid><pro_uid>2ba29d0b6fcb536390f42382a3045581</pro_uid><act_name>CAD/CIC Final Validation</act_name><act_type>TASK</act_type><act_task_type>EMPTY</act_type></record>
+    </table>
+    <table name="EVENT">
+      <record><evn_uid>fb457aa7e087090950d0c38f6a0c457f</evn_uid><prj_uid>89169c3323781bae9daae1643e7077ee</prj_uid><pro_uid>2ba29d0b6fcb536390f42382a3045581</pro_uid><evn_name>Start</evn_name><evn_type>START</evn_type><evn_marker>EMPTY</evn_marker><evn_behavior>CATCH</evn_behavior><evn_message>LEAD</evn_message></record>
+      <record><evn_uid>0b52e7d45cd3ea9fdb076dcd7988de95</evn_uid><prj_uid>89169c3323781bae9daae1643e7077ee</prj_uid><pro_uid>2ba29d0b6fcb536390f42382a3045581</pro_uid><evn_name>Released</evn_name><evn_type>END</evn_type><evn_marker>EMPTY</evn_marker><evn_behavior>THROW</evn_behavior></record>
+      <record><evn_uid>e6290ade6a440577d31e9af0fe7c698b</evn_uid><prj_uid>89169c3323781bae9daae1643e7077ee</prj_uid><pro_uid>2ba29d0b6fcb536390f42382a3045581</pro_uid><evn_name>Rejected</evn_name><evn_type>END</evn_type><evn_marker>EMPTY</evn_marker><evn_behavior>THROW</evn_behavior></record>
+      <record><evn_uid>e87f6e96d2066003663668865446f11e</evn_uid><prj_uid>89169c3323781bae9daae1643e7077ee</prj_uid><pro_uid>2ba29d0b6fcb536390f42382a3045581</pro_uid><evn_name>Cancelled</evn_name><evn_type>END</evn_type><evn_marker>EMPTY</evn_marker><evn_behavior>THROW</evn_behavior></record>
+    </table>
+    <table name="GATEWAY">
+      <record><gat_uid>3fb89314cd9e5da1d5e9e621d6a1f411</gat_uid><prj_uid>89169c3323781bae9daae1643e7077ee</prj_uid><pro_uid>2ba29d0b6fcb536390f42382a3045581</pro_uid><gat_name>Route by Reporting Structure</gat_name><gat_type>EXCLUSIVE</gat_type><gat_direction>DIVERGING</gat_direction></record>
+      <record><gat_uid>dd1a0ef367e4f661f2fe87083324c051</gat_uid><prj_uid>89169c3323781bae9daae1643e7077ee</prj_uid><pro_uid>2ba29d0b6fcb536390f42382a3045581</pro_uid><gat_name>Review Decision</gat_name><gat_type>EXCLUSIVE</gat_type><gat_direction>DIVERGING</gat_direction></record>
+      <record><gat_uid>624fb928529eef62b002e7ba7efc9349</gat_uid><prj_uid>89169c3323781bae9daae1643e7077ee</prj_uid><pro_uid>2ba29d0b6fcb536390f42382a3045581</pro_uid><gat_name>Letter Owner</gat_name><gat_type>EXCLUSIVE</gat_type><gat_direction>DIVERGING</gat_direction></record>
+      <record><gat_uid>039a070e32ae350487ecd2d7ee0a8a62</gat_uid><prj_uid>89169c3323781bae9daae1643e7077ee</prj_uid><pro_uid>2ba29d0b6fcb536390f42382a3045581</pro_uid><gat_name>CAD Decision</gat_name><gat_type>EXCLUSIVE</gat_type><gat_direction>DIVERGING</gat_direction></record>
+    </table>
+    <table name="FLOW">
+
+      <record>
+        <flo_uid>e1c8f4473675688647c984ab1129ae5a</flo_uid>
+        <prj_uid>89169c3323781bae9daae1643e7077ee</prj_uid>
+        <dia_uid>320deb1619347fbc25c4bd68faea31ca</dia_uid>
+        <flo_type>SEQUENCE</flo_type>
+        <flo_name> </flo_name>
+        <flo_element_origin>fb457aa7e087090950d0c38f6a0c457f</flo_element_origin>
+        <flo_element_origin_type>bpmnEvent</flo_element_origin_type>
+        <flo_element_dest>90dbd9876d16025b966f3b1a5be4aa84</flo_element_dest>
+        <flo_element_dest_type>bpmnActivity</flo_element_dest_type>
+        <flo_condition><![CDATA[]]></flo_condition>
+      </record>
+      <record>
+        <flo_uid>c883053917a93acb388394a12f922776</flo_uid>
+        <prj_uid>89169c3323781bae9daae1643e7077ee</prj_uid>
+        <dia_uid>320deb1619347fbc25c4bd68faea31ca</dia_uid>
+        <flo_type>SEQUENCE</flo_type>
+        <flo_name> </flo_name>
+        <flo_element_origin>90dbd9876d16025b966f3b1a5be4aa84</flo_element_origin>
+        <flo_element_origin_type>bpmnActivity</flo_element_origin_type>
+        <flo_element_dest>345a28ddc541b84328c8a76c84d88f9c</flo_element_dest>
+        <flo_element_dest_type>bpmnActivity</flo_element_dest_type>
+        <flo_condition><![CDATA[]]></flo_condition>
+      </record>
+      <record>
+        <flo_uid>e596782e3cc2ef94f87ce1b294aad4aa</flo_uid>
+        <prj_uid>89169c3323781bae9daae1643e7077ee</prj_uid>
+        <dia_uid>320deb1619347fbc25c4bd68faea31ca</dia_uid>
+        <flo_type>SEQUENCE</flo_type>
+        <flo_name> </flo_name>
+        <flo_element_origin>345a28ddc541b84328c8a76c84d88f9c</flo_element_origin>
+        <flo_element_origin_type>bpmnActivity</flo_element_origin_type>
+        <flo_element_dest>b6aebf07607edd22db32be8368b59dd4</flo_element_dest>
+        <flo_element_dest_type>bpmnActivity</flo_element_dest_type>
+        <flo_condition><![CDATA[]]></flo_condition>
+      </record>
+      <record>
+        <flo_uid>dd8a6d4f490a119f4e88bcc35becafc5</flo_uid>
+        <prj_uid>89169c3323781bae9daae1643e7077ee</prj_uid>
+        <dia_uid>320deb1619347fbc25c4bd68faea31ca</dia_uid>
+        <flo_type>SEQUENCE</flo_type>
+        <flo_name> </flo_name>
+        <flo_element_origin>b6aebf07607edd22db32be8368b59dd4</flo_element_origin>
+        <flo_element_origin_type>bpmnActivity</flo_element_origin_type>
+        <flo_element_dest>3fb89314cd9e5da1d5e9e621d6a1f411</flo_element_dest>
+        <flo_element_dest_type>bpmnGateway</flo_element_dest_type>
+        <flo_condition><![CDATA[]]></flo_condition>
+      </record>
+      <record>
+        <flo_uid>a1ea36767e8344aab95f0aedcb49629e</flo_uid>
+        <prj_uid>89169c3323781bae9daae1643e7077ee</prj_uid>
+        <dia_uid>320deb1619347fbc25c4bd68faea31ca</dia_uid>
+        <flo_type>SEQUENCE</flo_type>
+        <flo_name> </flo_name>
+        <flo_element_origin>3fb89314cd9e5da1d5e9e621d6a1f411</flo_element_origin>
+        <flo_element_origin_type>bpmnGateway</flo_element_origin_type>
+        <flo_element_dest>8ff7d855577b81150cf0440da2bca8a5</flo_element_dest>
+        <flo_element_dest_type>bpmnActivity</flo_element_dest_type>
+        <flo_condition><![CDATA[@@routeMode == "pool"]]></flo_condition>
+      </record>
+      <record>
+        <flo_uid>6cfad2f3e0c31e526048041343ec7bd9</flo_uid>
+        <prj_uid>89169c3323781bae9daae1643e7077ee</prj_uid>
+        <dia_uid>320deb1619347fbc25c4bd68faea31ca</dia_uid>
+        <flo_type>SEQUENCE</flo_type>
+        <flo_name> </flo_name>
+        <flo_element_origin>3fb89314cd9e5da1d5e9e621d6a1f411</flo_element_origin>
+        <flo_element_origin_type>bpmnGateway</flo_element_origin_type>
+        <flo_element_dest>56a9aa436bfb70a85abb9c5e48722fed</flo_element_dest>
+        <flo_element_dest_type>bpmnActivity</flo_element_dest_type>
+        <flo_condition><![CDATA[@@routeMode != "pool"]]></flo_condition>
+      </record>
+      <record>
+        <flo_uid>3032c15e629f9551e785efa84caba21c</flo_uid>
+        <prj_uid>89169c3323781bae9daae1643e7077ee</prj_uid>
+        <dia_uid>320deb1619347fbc25c4bd68faea31ca</dia_uid>
+        <flo_type>SEQUENCE</flo_type>
+        <flo_name> </flo_name>
+        <flo_element_origin>8ff7d855577b81150cf0440da2bca8a5</flo_element_origin>
+        <flo_element_origin_type>bpmnActivity</flo_element_origin_type>
+        <flo_element_dest>56a9aa436bfb70a85abb9c5e48722fed</flo_element_dest>
+        <flo_element_dest_type>bpmnActivity</flo_element_dest_type>
+        <flo_condition><![CDATA[]]></flo_condition>
+      </record>
+      <record>
+        <flo_uid>c5375df6764fd4c0465a99675bdec1e9</flo_uid>
+        <prj_uid>89169c3323781bae9daae1643e7077ee</prj_uid>
+        <dia_uid>320deb1619347fbc25c4bd68faea31ca</dia_uid>
+        <flo_type>SEQUENCE</flo_type>
+        <flo_name> </flo_name>
+        <flo_element_origin>56a9aa436bfb70a85abb9c5e48722fed</flo_element_origin>
+        <flo_element_origin_type>bpmnActivity</flo_element_origin_type>
+        <flo_element_dest>dd1a0ef367e4f661f2fe87083324c051</flo_element_dest>
+        <flo_element_dest_type>bpmnGateway</flo_element_dest_type>
+        <flo_condition><![CDATA[]]></flo_condition>
+      </record>
+      <record>
+        <flo_uid>21497ae15e6105410f4301e782358d26</flo_uid>
+        <prj_uid>89169c3323781bae9daae1643e7077ee</prj_uid>
+        <dia_uid>320deb1619347fbc25c4bd68faea31ca</dia_uid>
+        <flo_type>SEQUENCE</flo_type>
+        <flo_name> </flo_name>
+        <flo_element_origin>dd1a0ef367e4f661f2fe87083324c051</flo_element_origin>
+        <flo_element_origin_type>bpmnGateway</flo_element_origin_type>
+        <flo_element_dest>ccff3cef401fb965e8aea2333e86288a</flo_element_dest>
+        <flo_element_dest_type>bpmnActivity</flo_element_dest_type>
+        <flo_condition><![CDATA[@@reviewDecision == "APPROVE" && @@letterOwner == "initiator"]]></flo_condition>
+      </record>
+      <record>
+        <flo_uid>cc97a5c21780ba33695336dbe1fdf714</flo_uid>
+        <prj_uid>89169c3323781bae9daae1643e7077ee</prj_uid>
+        <dia_uid>320deb1619347fbc25c4bd68faea31ca</dia_uid>
+        <flo_type>SEQUENCE</flo_type>
+        <flo_name> </flo_name>
+        <flo_element_origin>dd1a0ef367e4f661f2fe87083324c051</flo_element_origin>
+        <flo_element_origin_type>bpmnGateway</flo_element_origin_type>
+        <flo_element_dest>c2ade89a46bd58e293ae702169565931</flo_element_dest>
+        <flo_element_dest_type>bpmnActivity</flo_element_dest_type>
+        <flo_condition><![CDATA[@@reviewDecision == "APPROVE" && @@letterOwner == "cad"]]></flo_condition>
+      </record>
+      <record>
+        <flo_uid>098abd2df49c7213eb308989b2d78684</flo_uid>
+        <prj_uid>89169c3323781bae9daae1643e7077ee</prj_uid>
+        <dia_uid>320deb1619347fbc25c4bd68faea31ca</dia_uid>
+        <flo_type>SEQUENCE</flo_type>
+        <flo_name> </flo_name>
+        <flo_element_origin>dd1a0ef367e4f661f2fe87083324c051</flo_element_origin>
+        <flo_element_origin_type>bpmnGateway</flo_element_origin_type>
+        <flo_element_dest>dc41b0dcf7159a261eb1052a4a603d84</flo_element_dest>
+        <flo_element_dest_type>bpmnActivity</flo_element_dest_type>
+        <flo_condition><![CDATA[@@reviewDecision == "RETURN"]]></flo_condition>
+      </record>
+      <record>
+        <flo_uid>caa8a27e5bea9ccf2d987cffab49ec91</flo_uid>
+        <prj_uid>89169c3323781bae9daae1643e7077ee</prj_uid>
+        <dia_uid>320deb1619347fbc25c4bd68faea31ca</dia_uid>
+        <flo_type>SEQUENCE</flo_type>
+        <flo_name> </flo_name>
+        <flo_element_origin>dd1a0ef367e4f661f2fe87083324c051</flo_element_origin>
+        <flo_element_origin_type>bpmnGateway</flo_element_origin_type>
+        <flo_element_dest>557fdd609ad1b73e73ef240a148eb7cd</flo_element_dest>
+        <flo_element_dest_type>bpmnActivity</flo_element_dest_type>
+        <flo_condition><![CDATA[@@reviewDecision == "QUERY"]]></flo_condition>
+      </record>
+      <record>
+        <flo_uid>a06f2e05608debeadc04c45f37209a5a</flo_uid>
+        <prj_uid>89169c3323781bae9daae1643e7077ee</prj_uid>
+        <dia_uid>320deb1619347fbc25c4bd68faea31ca</dia_uid>
+        <flo_type>SEQUENCE</flo_type>
+        <flo_name> </flo_name>
+        <flo_element_origin>dd1a0ef367e4f661f2fe87083324c051</flo_element_origin>
+        <flo_element_origin_type>bpmnGateway</flo_element_origin_type>
+        <flo_element_dest>e6290ade6a440577d31e9af0fe7c698b</flo_element_dest>
+        <flo_element_dest_type>bpmnEvent</flo_element_dest_type>
+        <flo_condition><![CDATA[@@reviewDecision == "REJECT"]]></flo_condition>
+      </record>
+      <record>
+        <flo_uid>a729b85f8536c38ddee324459dbbd73b</flo_uid>
+        <prj_uid>89169c3323781bae9daae1643e7077ee</prj_uid>
+        <dia_uid>320deb1619347fbc25c4bd68faea31ca</dia_uid>
+        <flo_type>SEQUENCE</flo_type>
+        <flo_name> </flo_name>
+        <flo_element_origin>dc41b0dcf7159a261eb1052a4a603d84</flo_element_origin>
+        <flo_element_origin_type>bpmnActivity</flo_element_origin_type>
+        <flo_element_dest>56a9aa436bfb70a85abb9c5e48722fed</flo_element_dest>
+        <flo_element_dest_type>bpmnActivity</flo_element_dest_type>
+        <flo_condition><![CDATA[]]></flo_condition>
+      </record>
+      <record>
+        <flo_uid>a201a539831635fd0d8a4c77371e5024</flo_uid>
+        <prj_uid>89169c3323781bae9daae1643e7077ee</prj_uid>
+        <dia_uid>320deb1619347fbc25c4bd68faea31ca</dia_uid>
+        <flo_type>SEQUENCE</flo_type>
+        <flo_name> </flo_name>
+        <flo_element_origin>557fdd609ad1b73e73ef240a148eb7cd</flo_element_origin>
+        <flo_element_origin_type>bpmnActivity</flo_element_origin_type>
+        <flo_element_dest>56a9aa436bfb70a85abb9c5e48722fed</flo_element_dest>
+        <flo_element_dest_type>bpmnActivity</flo_element_dest_type>
+        <flo_condition><![CDATA[]]></flo_condition>
+      </record>
+      <record>
+        <flo_uid>8c3f88204f57442cb2fad3cf9d6ab982</flo_uid>
+        <prj_uid>89169c3323781bae9daae1643e7077ee</prj_uid>
+        <dia_uid>320deb1619347fbc25c4bd68faea31ca</dia_uid>
+        <flo_type>SEQUENCE</flo_type>
+        <flo_name> </flo_name>
+        <flo_element_origin>ccff3cef401fb965e8aea2333e86288a</flo_element_origin>
+        <flo_element_origin_type>bpmnActivity</flo_element_origin_type>
+        <flo_element_dest>910d84c0aadfd96ab5ac889073d7b11b</flo_element_dest>
+        <flo_element_dest_type>bpmnActivity</flo_element_dest_type>
+        <flo_condition><![CDATA[]]></flo_condition>
+      </record>
+      <record>
+        <flo_uid>92a773a1ccb3ce57a4890ca5a2413dfa</flo_uid>
+        <prj_uid>89169c3323781bae9daae1643e7077ee</prj_uid>
+        <dia_uid>320deb1619347fbc25c4bd68faea31ca</dia_uid>
+        <flo_type>SEQUENCE</flo_type>
+        <flo_name> </flo_name>
+        <flo_element_origin>c2ade89a46bd58e293ae702169565931</flo_element_origin>
+        <flo_element_origin_type>bpmnActivity</flo_element_origin_type>
+        <flo_element_dest>910d84c0aadfd96ab5ac889073d7b11b</flo_element_dest>
+        <flo_element_dest_type>bpmnActivity</flo_element_dest_type>
+        <flo_condition><![CDATA[]]></flo_condition>
+      </record>
+      <record>
+        <flo_uid>5a8fff28addab611ec0681d84f0e9588</flo_uid>
+        <prj_uid>89169c3323781bae9daae1643e7077ee</prj_uid>
+        <dia_uid>320deb1619347fbc25c4bd68faea31ca</dia_uid>
+        <flo_type>SEQUENCE</flo_type>
+        <flo_name> </flo_name>
+        <flo_element_origin>910d84c0aadfd96ab5ac889073d7b11b</flo_element_origin>
+        <flo_element_origin_type>bpmnActivity</flo_element_origin_type>
+        <flo_element_dest>039a070e32ae350487ecd2d7ee0a8a62</flo_element_dest>
+        <flo_element_dest_type>bpmnGateway</flo_element_dest_type>
+        <flo_condition><![CDATA[]]></flo_condition>
+      </record>
+      <record>
+        <flo_uid>e897d7e69a5cda0053fa06865e2a31c0</flo_uid>
+        <prj_uid>89169c3323781bae9daae1643e7077ee</prj_uid>
+        <dia_uid>320deb1619347fbc25c4bd68faea31ca</dia_uid>
+        <flo_type>SEQUENCE</flo_type>
+        <flo_name> </flo_name>
+        <flo_element_origin>039a070e32ae350487ecd2d7ee0a8a62</flo_element_origin>
+        <flo_element_origin_type>bpmnGateway</flo_element_origin_type>
+        <flo_element_dest>0b52e7d45cd3ea9fdb076dcd7988de95</flo_element_dest>
+        <flo_element_dest_type>bpmnEvent</flo_element_dest_type>
+        <flo_condition><![CDATA[@@cadDecision == "RELEASE"]]></flo_condition>
+      </record>
+      <record>
+        <flo_uid>f3cb1f78f617c1d381f4df65f31ffec2</flo_uid>
+        <prj_uid>89169c3323781bae9daae1643e7077ee</prj_uid>
+        <dia_uid>320deb1619347fbc25c4bd68faea31ca</dia_uid>
+        <flo_type>SEQUENCE</flo_type>
+        <flo_name> </flo_name>
+        <flo_element_origin>039a070e32ae350487ecd2d7ee0a8a62</flo_element_origin>
+        <flo_element_origin_type>bpmnGateway</flo_element_origin_type>
+        <flo_element_dest>dc41b0dcf7159a261eb1052a4a603d84</flo_element_dest>
+        <flo_element_dest_type>bpmnActivity</flo_element_dest_type>
+        <flo_condition><![CDATA[@@cadDecision == "CAD_RETURN"]]></flo_condition>
+      </record>
+      <record>
+        <flo_uid>e547326b6a2f44879f67f4b8523a4c13</flo_uid>
+        <prj_uid>89169c3323781bae9daae1643e7077ee</prj_uid>
+        <dia_uid>320deb1619347fbc25c4bd68faea31ca</dia_uid>
+        <flo_type>SEQUENCE</flo_type>
+        <flo_name> </flo_name>
+        <flo_element_origin>039a070e32ae350487ecd2d7ee0a8a62</flo_element_origin>
+        <flo_element_origin_type>bpmnGateway</flo_element_origin_type>
+        <flo_element_dest>557fdd609ad1b73e73ef240a148eb7cd</flo_element_dest>
+        <flo_element_dest_type>bpmnActivity</flo_element_dest_type>
+        <flo_condition><![CDATA[@@cadDecision == "CAD_QUERY"]]></flo_condition>
+      </record>
+      <record>
+        <flo_uid>61a087764da63f11294d137d017bfff6</flo_uid>
+        <prj_uid>89169c3323781bae9daae1643e7077ee</prj_uid>
+        <dia_uid>320deb1619347fbc25c4bd68faea31ca</dia_uid>
+        <flo_type>SEQUENCE</flo_type>
+        <flo_name> </flo_name>
+        <flo_element_origin>039a070e32ae350487ecd2d7ee0a8a62</flo_element_origin>
+        <flo_element_origin_type>bpmnGateway</flo_element_origin_type>
+        <flo_element_dest>910d84c0aadfd96ab5ac889073d7b11b</flo_element_dest>
+        <flo_element_dest_type>bpmnActivity</flo_element_dest_type>
+        <flo_condition><![CDATA[@@cadDecision == "CIB_REPORTED" || @@cadDecision == "RESUME_VALIDATION"]]></flo_condition>
+      </record>
+    </table>
+  </definition>
+  <definition class="workflow">
+    <table name="process">
+      <record>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <pro_title>Blacklisting Release Full SOP</pro_title>
+        <pro_description>End-to-end blacklisting release: DigiHost auto-population, 6 types, BROPs pool, letter generation, CAD validation, auto-unfreeze</pro_description>
+        <pro_status>ACTIVE</pro_status>
+        <pro_type>NORMAL</pro_type>
+        <pro_bpmn>1</pro_bpmn>
+      </record>
+    </table>
+    <table name="tasks">
+      <record><pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid><tas_uid>90dbd9876d16025b966f3b1a5be4aa84</tas_uid><tas_title>Identify Blacklisted Case</tas_title><tas_type>NORMAL</tas_type><tas_assign_type>SELF_SERVICE</tas_assign_type><tas_duration>1</tas_duration><tas_timeunit>DAYS</tas_timeunit><tas_start>TRUE</tas_start></record>
+      <record><pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid><tas_uid>345a28ddc541b84328c8a76c84d88f9c</tas_uid><tas_title>Select Release Type &amp; Details</tas_title><tas_type>NORMAL</tas_type><tas_assign_type>SELF_SERVICE</tas_assign_type><tas_duration>1</tas_duration><tas_timeunit>DAYS</tas_timeunit></record>
+      <record><pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid><tas_uid>b6aebf07607edd22db32be8368b59dd4</tas_uid><tas_title>Upload Mandatory Documents</tas_title><tas_type>NORMAL</tas_type><tas_assign_type>SELF_SERVICE</tas_assign_type><tas_duration>1</tas_duration><tas_timeunit>DAYS</tas_timeunit></record>
+      <record><pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid><tas_uid>8ff7d855577b81150cf0440da2bca8a5</tas_uid><tas_title>BROPs Pool - Claim</tas_title><tas_type>NORMAL</tas_type><tas_assign_type>SELF_SERVICE</tas_assign_type><tas_duration>1</tas_duration><tas_timeunit>DAYS</tas_timeunit><tas_self_service>TRUE</tas_self_service></record>
+      <record><pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid><tas_uid>56a9aa436bfb70a85abb9c5e48722fed</tas_uid><tas_title>Review - Approve/Return/Query/Forward/Reject</tas_title><tas_type>NORMAL</tas_type><tas_assign_type>BALANCED</tas_assign_type><tas_duration>2</tas_duration><tas_timeunit>DAYS</tas_timeunit></record>
+      <record><pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid><tas_uid>dc41b0dcf7159a261eb1052a4a603d84</tas_uid><tas_title>Rectify After Return</tas_title><tas_type>NORMAL</tas_type><tas_assign_type>SELF_SERVICE</tas_assign_type><tas_duration>2</tas_duration><tas_timeunit>DAYS</tas_timeunit></record>
+      <record><pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid><tas_uid>557fdd609ad1b73e73ef240a148eb7cd</tas_uid><tas_title>Clarify After Query</tas_title><tas_type>NORMAL</tas_type><tas_assign_type>SELF_SERVICE</tas_assign_type><tas_duration>2</tas_duration><tas_timeunit>DAYS</tas_timeunit></record>
+      <record><pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid><tas_uid>ccff3cef401fb965e8aea2333e86288a</tas_uid><tas_title>Letter - Initiator Signs</tas_title><tas_type>NORMAL</tas_type><tas_assign_type>SELF_SERVICE</tas_assign_type><tas_duration>1</tas_duration><tas_timeunit>DAYS</tas_timeunit></record>
+      <record><pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid><tas_uid>c2ade89a46bd58e293ae702169565931</tas_uid><tas_title>Letter - CAD Completes</tas_title><tas_type>NORMAL</tas_type><tas_assign_type>SELF_SERVICE</tas_assign_type><tas_duration>1</tas_duration><tas_timeunit>DAYS</tas_timeunit></record>
+      <record><pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid><tas_uid>910d84c0aadfd96ab5ac889073d7b11b</tas_uid><tas_title>CAD/CIC Final Validation</tas_title><tas_type>NORMAL</tas_type><tas_assign_type>SELF_SERVICE</tas_assign_type><tas_duration>3</tas_duration><tas_timeunit>DAYS</tas_timeunit></record>
+    </table>
+    <table name="routes">
+
+      <record>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <tas_uid>90dbd9876d16025b966f3b1a5be4aa84</tas_uid>
+        <rou_next_task>345a28ddc541b84328c8a76c84d88f9c</rou_next_task>
+        <rou_condition><![CDATA[]]></rou_condition>
+        <rou_type>SEQUENTIAL</rou_type>
+      </record>
+      <record>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <tas_uid>345a28ddc541b84328c8a76c84d88f9c</tas_uid>
+        <rou_next_task>b6aebf07607edd22db32be8368b59dd4</rou_next_task>
+        <rou_condition><![CDATA[]]></rou_condition>
+        <rou_type>SEQUENTIAL</rou_type>
+      </record>
+      <record>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <tas_uid>b6aebf07607edd22db32be8368b59dd4</tas_uid>
+        <rou_next_task>8ff7d855577b81150cf0440da2bca8a5</rou_next_task>
+        <rou_condition><![CDATA[@@routeMode == "pool"]]></rou_condition>
+        <rou_type>EVALUATE</rou_type>
+      </record>
+      <record>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <tas_uid>b6aebf07607edd22db32be8368b59dd4</tas_uid>
+        <rou_next_task>56a9aa436bfb70a85abb9c5e48722fed</rou_next_task>
+        <rou_condition><![CDATA[@@routeMode != "pool"]]></rou_condition>
+        <rou_type>EVALUATE</rou_type>
+      </record>
+      <record>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <tas_uid>8ff7d855577b81150cf0440da2bca8a5</tas_uid>
+        <rou_next_task>56a9aa436bfb70a85abb9c5e48722fed</rou_next_task>
+        <rou_condition><![CDATA[]]></rou_condition>
+        <rou_type>SEQUENTIAL</rou_type>
+      </record>
+      <record>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <tas_uid>56a9aa436bfb70a85abb9c5e48722fed</tas_uid>
+        <rou_next_task>ccff3cef401fb965e8aea2333e86288a</rou_next_task>
+        <rou_condition><![CDATA[@@reviewDecision == "APPROVE" && @@letterOwner == "initiator"]]></rou_condition>
+        <rou_type>EVALUATE</rou_type>
+      </record>
+      <record>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <tas_uid>56a9aa436bfb70a85abb9c5e48722fed</tas_uid>
+        <rou_next_task>c2ade89a46bd58e293ae702169565931</rou_next_task>
+        <rou_condition><![CDATA[@@reviewDecision == "APPROVE" && @@letterOwner == "cad"]]></rou_condition>
+        <rou_type>EVALUATE</rou_type>
+      </record>
+      <record>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <tas_uid>56a9aa436bfb70a85abb9c5e48722fed</tas_uid>
+        <rou_next_task>dc41b0dcf7159a261eb1052a4a603d84</rou_next_task>
+        <rou_condition><![CDATA[@@reviewDecision == "RETURN"]]></rou_condition>
+        <rou_type>EVALUATE</rou_type>
+      </record>
+      <record>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <tas_uid>56a9aa436bfb70a85abb9c5e48722fed</tas_uid>
+        <rou_next_task>557fdd609ad1b73e73ef240a148eb7cd</rou_next_task>
+        <rou_condition><![CDATA[@@reviewDecision == "QUERY"]]></rou_condition>
+        <rou_type>EVALUATE</rou_type>
+      </record>
+      <record>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <tas_uid>dc41b0dcf7159a261eb1052a4a603d84</tas_uid>
+        <rou_next_task>56a9aa436bfb70a85abb9c5e48722fed</rou_next_task>
+        <rou_condition><![CDATA[]]></rou_condition>
+        <rou_type>SEQUENTIAL</rou_type>
+      </record>
+      <record>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <tas_uid>557fdd609ad1b73e73ef240a148eb7cd</tas_uid>
+        <rou_next_task>56a9aa436bfb70a85abb9c5e48722fed</rou_next_task>
+        <rou_condition><![CDATA[]]></rou_condition>
+        <rou_type>SEQUENTIAL</rou_type>
+      </record>
+      <record>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <tas_uid>ccff3cef401fb965e8aea2333e86288a</tas_uid>
+        <rou_next_task>910d84c0aadfd96ab5ac889073d7b11b</rou_next_task>
+        <rou_condition><![CDATA[]]></rou_condition>
+        <rou_type>SEQUENTIAL</rou_type>
+      </record>
+      <record>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <tas_uid>c2ade89a46bd58e293ae702169565931</tas_uid>
+        <rou_next_task>910d84c0aadfd96ab5ac889073d7b11b</rou_next_task>
+        <rou_condition><![CDATA[]]></rou_condition>
+        <rou_type>SEQUENTIAL</rou_type>
+      </record>
+      <record>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <tas_uid>910d84c0aadfd96ab5ac889073d7b11b</tas_uid>
+        <rou_next_task>dc41b0dcf7159a261eb1052a4a603d84</rou_next_task>
+        <rou_condition><![CDATA[@@cadDecision == "CAD_RETURN"]]></rou_condition>
+        <rou_type>EVALUATE</rou_type>
+      </record>
+      <record>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <tas_uid>910d84c0aadfd96ab5ac889073d7b11b</tas_uid>
+        <rou_next_task>557fdd609ad1b73e73ef240a148eb7cd</rou_next_task>
+        <rou_condition><![CDATA[@@cadDecision == "CAD_QUERY"]]></rou_condition>
+        <rou_type>EVALUATE</rou_type>
+      </record>
+      <record>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <tas_uid>910d84c0aadfd96ab5ac889073d7b11b</tas_uid>
+        <rou_next_task>910d84c0aadfd96ab5ac889073d7b11b</rou_next_task>
+        <rou_condition><![CDATA[@@cadDecision == "CIB_REPORTED" || @@cadDecision == "RESUME_VALIDATION"]]></rou_condition>
+        <rou_type>EVALUATE</rou_type>
+      </record>
+    </table>
+    <table name="dynaforms">
+
+      <record>
+        <dyn_uid>d4d8fcfd1f1c4f541883d320cacdc968</dyn_uid>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <dyn_title>DF_IDENTIFY_CASE</dyn_title>
+        <dyn_type>xmlform</dyn_type>
+        <dyn_content><![CDATA[{"name": "DF_IDENTIFY_CASE", "items": []}]]></dyn_content>
+      </record>
+      <record>
+        <dyn_uid>9ec5e5d3622d8e93c92c5d7bd96ede6c</dyn_uid>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <dyn_title>DF_RELEASE_TYPE_SELECT</dyn_title>
+        <dyn_type>xmlform</dyn_type>
+        <dyn_content><![CDATA[{"name": "DF_RELEASE_TYPE_SELECT", "items": []}]]></dyn_content>
+      </record>
+      <record>
+        <dyn_uid>9bb930881521f46da1e839f2eca5b6e2</dyn_uid>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <dyn_title>DF_TYPE_DETAILS_APPLICANT_CHEQUE</dyn_title>
+        <dyn_type>xmlform</dyn_type>
+        <dyn_content><![CDATA[{"name": "DF_TYPE_DETAILS_APPLICANT_CHEQUE", "items": []}]]></dyn_content>
+      </record>
+      <record>
+        <dyn_uid>7da858e9fe62b695866c1b32c02bc36c</dyn_uid>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <dyn_title>DF_TYPE_DETAILS_AC_HOLDER</dyn_title>
+        <dyn_type>xmlform</dyn_type>
+        <dyn_content><![CDATA[{"name": "DF_TYPE_DETAILS_AC_HOLDER", "items": []}]]></dyn_content>
+      </record>
+      <record>
+        <dyn_uid>fc9af34f30658af572743db0a9f50fa8</dyn_uid>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <dyn_title>DF_TYPE_DETAILS_COURT</dyn_title>
+        <dyn_type>xmlform</dyn_type>
+        <dyn_content><![CDATA[{"name": "DF_TYPE_DETAILS_COURT", "items": []}]]></dyn_content>
+      </record>
+      <record>
+        <dyn_uid>92ddbaa135b0c6ed50103a975eb56572</dyn_uid>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <dyn_title>DF_TYPE_DETAILS_NPA</dyn_title>
+        <dyn_type>xmlform</dyn_type>
+        <dyn_content><![CDATA[{"name": "DF_TYPE_DETAILS_NPA", "items": []}]]></dyn_content>
+      </record>
+      <record>
+        <dyn_uid>b5ec01314eae2802c3f00268b535d0ce</dyn_uid>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <dyn_title>DF_TYPE_DETAILS_PARTIAL</dyn_title>
+        <dyn_type>xmlform</dyn_type>
+        <dyn_content><![CDATA[{"name": "DF_TYPE_DETAILS_PARTIAL", "items": []}]]></dyn_content>
+      </record>
+      <record>
+        <dyn_uid>a9e3a565f5fa90cd442da2e0e3069ec8</dyn_uid>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <dyn_title>DF_TYPE_DETAILS_TEMPORARY</dyn_title>
+        <dyn_type>xmlform</dyn_type>
+        <dyn_content><![CDATA[{"name": "DF_TYPE_DETAILS_TEMPORARY", "items": []}]]></dyn_content>
+      </record>
+      <record>
+        <dyn_uid>2847d7a68dafc53543798fdd295c810a</dyn_uid>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <dyn_title>DF_DOCUMENT_CHECKLIST</dyn_title>
+        <dyn_type>xmlform</dyn_type>
+        <dyn_content><![CDATA[{"name": "DF_DOCUMENT_CHECKLIST", "items": []}]]></dyn_content>
+      </record>
+      <record>
+        <dyn_uid>1c55899ce2b9838f7150b78c0edb6850</dyn_uid>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <dyn_title>DF_REVIEW_DECISION</dyn_title>
+        <dyn_type>xmlform</dyn_type>
+        <dyn_content><![CDATA[{"name": "DF_REVIEW_DECISION", "items": []}]]></dyn_content>
+      </record>
+      <record>
+        <dyn_uid>b9fd9fbf3a4518d8aac32a00bfe98562</dyn_uid>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <dyn_title>DF_LETTER_INITIATOR</dyn_title>
+        <dyn_type>xmlform</dyn_type>
+        <dyn_content><![CDATA[{"name": "DF_LETTER_INITIATOR", "items": []}]]></dyn_content>
+      </record>
+      <record>
+        <dyn_uid>ee47cf4964e22168404e54b04ed160d9</dyn_uid>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <dyn_title>DF_LETTER_CAD</dyn_title>
+        <dyn_type>xmlform</dyn_type>
+        <dyn_content><![CDATA[{"name": "DF_LETTER_CAD", "items": []}]]></dyn_content>
+      </record>
+      <record>
+        <dyn_uid>1ccc296c4444cd384e302e819998e909</dyn_uid>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <dyn_title>DF_CAD_VALIDATION</dyn_title>
+        <dyn_type>xmlform</dyn_type>
+        <dyn_content><![CDATA[{"name": "DF_CAD_VALIDATION", "items": []}]]></dyn_content>
+      </record>
+    </table>
+    <table name="triggers">
+
+      <record>
+        <tri_uid>15b837d45155cd2da16bbc24193b856c</tri_uid>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <tri_title>TRG_LOOKUP_BLACKLIST</tri_title>
+        <tri_type>SCRIPT</tri_type>
+        <tri_webbot><![CDATA[// Trigger TRG_LOOKUP_BLACKLIST]]></tri_webbot>
+      </record>
+      <record>
+        <tri_uid>7633cc09c7b4007df745139bd60ab73a</tri_uid>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <tri_title>TRG_VALIDATE_TYPE_FIELDS</tri_title>
+        <tri_type>SCRIPT</tri_type>
+        <tri_webbot><![CDATA[// Trigger TRG_VALIDATE_TYPE_FIELDS]]></tri_webbot>
+      </record>
+      <record>
+        <tri_uid>31ff23271f9360331c90c49d9e2e65de</tri_uid>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <tri_title>TRG_MAKER_COMPLETENESS_CHECK</tri_title>
+        <tri_type>SCRIPT</tri_type>
+        <tri_webbot><![CDATA[// Trigger TRG_MAKER_COMPLETENESS_CHECK]]></tri_webbot>
+      </record>
+      <record>
+        <tri_uid>328aabd723ac0189304945bed269458b</tri_uid>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <tri_title>TRG_VALIDATE_REVIEW</tri_title>
+        <tri_type>SCRIPT</tri_type>
+        <tri_webbot><![CDATA[// Trigger TRG_VALIDATE_REVIEW]]></tri_webbot>
+      </record>
+      <record>
+        <tri_uid>cc9897a0dcfaa66ea28825e0a73bf2df</tri_uid>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <tri_title>TRG_CHECK_SIGNED_LETTER</tri_title>
+        <tri_type>SCRIPT</tri_type>
+        <tri_webbot><![CDATA[// Trigger TRG_CHECK_SIGNED_LETTER]]></tri_webbot>
+      </record>
+      <record>
+        <tri_uid>763bbde3af4c139f7d1ab2ea44c09c4e</tri_uid>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <tri_title>TRG_CAD_VALIDATE_ATTACHMENT</tri_title>
+        <tri_type>SCRIPT</tri_type>
+        <tri_webbot><![CDATA[// Trigger TRG_CAD_VALIDATE_ATTACHMENT]]></tri_webbot>
+      </record>
+      <record>
+        <tri_uid>b30d13d3157312255a97987654f955a4</tri_uid>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <tri_title>TRG_RELEASE_BLACKLIST</tri_title>
+        <tri_type>SCRIPT</tri_type>
+        <tri_webbot><![CDATA[// Trigger TRG_RELEASE_BLACKLIST]]></tri_webbot>
+      </record>
+    </table>
+    <table name="input_documents">
+
+      <record>
+        <inp_doc_uid>f7dc1424f3f8def6ff7e5f4f8b0d96ce</inp_doc_uid>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <inp_doc_title>Copy of cheque</inp_doc_title>
+        <inp_doc_description>Copy of cheque for blacklisting release</inp_doc_description>
+      </record>
+      <record>
+        <inp_doc_uid>99b3a6252d64db7e92d7124abfc11cfa</inp_doc_uid>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <inp_doc_title>Application from payee</inp_doc_title>
+        <inp_doc_description>Application from payee for blacklisting release</inp_doc_description>
+      </record>
+      <record>
+        <inp_doc_uid>4928535df337429f6fdce865765f0332</inp_doc_uid>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <inp_doc_title>MDR copy</inp_doc_title>
+        <inp_doc_description>MDR copy for blacklisting release</inp_doc_description>
+      </record>
+      <record>
+        <inp_doc_uid>fae136fefbb9465bf202e1e7a6030b2f</inp_doc_uid>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <inp_doc_title>ID holder</inp_doc_title>
+        <inp_doc_description>ID holder for blacklisting release</inp_doc_description>
+      </record>
+      <record>
+        <inp_doc_uid>954609969695c57a4d553d89cdff6961</inp_doc_uid>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <inp_doc_title>CIB Inclusion Letter</inp_doc_title>
+        <inp_doc_description>CIB Inclusion Letter for blacklisting release</inp_doc_description>
+      </record>
+      <record>
+        <inp_doc_uid>7a60b4594e13486243095ce4cf335718</inp_doc_uid>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <inp_doc_title>Blacklist docs</inp_doc_title>
+        <inp_doc_description>Blacklist docs for blacklisting release</inp_doc_description>
+      </record>
+      <record>
+        <inp_doc_uid>61a6555f85030ab1870ce6dd364eb9f2</inp_doc_uid>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <inp_doc_title>Debit Authority</inp_doc_title>
+        <inp_doc_description>Debit Authority for blacklisting release</inp_doc_description>
+      </record>
+      <record>
+        <inp_doc_uid>b22f66664e5c5502d9a41769f555e1e3</inp_doc_uid>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <inp_doc_title>Court letter</inp_doc_title>
+        <inp_doc_description>Court letter for blacklisting release</inp_doc_description>
+      </record>
+      <record>
+        <inp_doc_uid>7e62d75e382e8279cc081f7fb7801b57</inp_doc_uid>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <inp_doc_title>Legal consent</inp_doc_title>
+        <inp_doc_description>Legal consent for blacklisting release</inp_doc_description>
+      </record>
+      <record>
+        <inp_doc_uid>fd825b3f3269a8c73805549bb1505b10</inp_doc_uid>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <inp_doc_title>BOC approval</inp_doc_title>
+        <inp_doc_description>BOC approval for blacklisting release</inp_doc_description>
+      </record>
+      <record>
+        <inp_doc_uid>8f4db0afa976b77e7bdd7035f1efcd90</inp_doc_uid>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <inp_doc_title>Loan regularization</inp_doc_title>
+        <inp_doc_description>Loan regularization for blacklisting release</inp_doc_description>
+      </record>
+      <record>
+        <inp_doc_uid>97d68da8b96dcbe9b69083d76b5d4891</inp_doc_uid>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <inp_doc_title>NRRC minute</inp_doc_title>
+        <inp_doc_description>NRRC minute for blacklisting release</inp_doc_description>
+      </record>
+      <record>
+        <inp_doc_uid>4c68008e93810ae304f2dd5f4cdff572</inp_doc_uid>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <inp_doc_title>Guarantor settlement</inp_doc_title>
+        <inp_doc_description>Guarantor settlement for blacklisting release</inp_doc_description>
+      </record>
+      <record>
+        <inp_doc_uid>739b36783d003f287eb0831427ee5d1e</inp_doc_uid>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <inp_doc_title>Payment plan</inp_doc_title>
+        <inp_doc_description>Payment plan for blacklisting release</inp_doc_description>
+      </record>
+      <record>
+        <inp_doc_uid>9e0503ef365fc59fa5c4426b3743d99a</inp_doc_uid>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <inp_doc_title>Committee minute</inp_doc_title>
+        <inp_doc_description>Committee minute for blacklisting release</inp_doc_description>
+      </record>
+      <record>
+        <inp_doc_uid>33b449781648253f5bc0a666e9bdfa7c</inp_doc_uid>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <inp_doc_title>Signed CIB Release Letter</inp_doc_title>
+        <inp_doc_description>Signed CIB Release Letter for blacklisting release</inp_doc_description>
+      </record>
+      <record>
+        <inp_doc_uid>5e0e623960cbb765d115368e3ec894dd</inp_doc_uid>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <inp_doc_title>CAD Return attachment</inp_doc_title>
+        <inp_doc_description>CAD Return attachment for blacklisting release</inp_doc_description>
+      </record>
+      <record>
+        <inp_doc_uid>ab79341bb519a61bd0e763b9b88759b7</inp_doc_uid>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <inp_doc_title>CIB Return feedback</inp_doc_title>
+        <inp_doc_description>CIB Return feedback for blacklisting release</inp_doc_description>
+      </record>
+    </table>
+    <table name="output_documents">
+
+      <record>
+        <out_doc_uid>3d3cb51db1a9f9a0740df2b2c2050fbd</out_doc_uid>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <out_doc_title>CIB Release Letter</out_doc_title>
+        <out_doc_filename>CIB_Release_Letter</out_doc_filename>
+        <out_doc_template><![CDATA[<html><body>Output CIB_Release_Letter @@partyName</body></html>]]></out_doc_template>
+      </record>
+      <record>
+        <out_doc_uid>de9179210ab2e55f1639b102c1b8b0ac</out_doc_uid>
+        <pro_uid>89169c3323781bae9daae1643e7077ee</pro_uid>
+        <out_doc_title>Final Release Document</out_doc_title>
+        <out_doc_filename>Final_Release_Document</out_doc_filename>
+        <out_doc_template><![CDATA[<html><body>Output Final_Release_Document @@partyName</body></html>]]></out_doc_template>
+      </record>
+    </table>
+  </definition>
+</ProcessMaker-Project>
