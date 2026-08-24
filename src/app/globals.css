@@ -1,0 +1,127 @@
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #f7f5ef;
+  --color-paper2: #efeadf;
+  --color-card: #fcfbf7;
+  --color-ink: #16181d;
+  --color-ink2: #444a55;
+  --color-ink3: #8a8f9b;
+  --color-line: rgba(22, 24, 29, 0.12);
+  --color-side: #101318;
+  --color-side2: #171b22;
+  --color-pine: #0f5e4e;
+  --color-pinedeep: #0a3f35;
+  --color-gold: #b9862f;
+  --color-goldsoft: #e9d9b4;
+  --font-display: var(--font-fraunces), "Georgia", serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-mono: var(--font-plex), "SFMono-Regular", monospace;
+  --font-script: var(--font-script), cursive;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Subtle paper texture for light surfaces */
+.paper-grain {
+  background-image: radial-gradient(rgba(22, 24, 29, 0.035) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+/* Fine rule grid for dark surfaces */
+.side-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* Dotted ledger leader */
+.leader {
+  background-image: linear-gradient(to right, rgba(22, 24, 29, 0.28) 1px, transparent 1px);
+  background-size: 5px 1px;
+  background-repeat: repeat-x;
+  background-position: 0 60%;
+  height: 1px;
+}
+
+::selection {
+  background: var(--color-pine);
+  color: #fff;
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(22, 24, 29, 0.22);
+  border-radius: 8px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+.dark-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.18);
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+/* Status tones */
+.tone-amber { color: #92590a; background: #f7ead1; border-color: #e4cd9c; }
+.tone-red { color: #99251c; background: #f8e3e0; border-color: #eec3bd; }
+.tone-violet { color: #5b21b6; background: #ede6f9; border-color: #d5c4ee; }
+.tone-cyan { color: #0d5d6e; background: #dff0f3; border-color: #bcdce3; }
+.tone-blue { color: #1e40af; background: #e2e9fa; border-color: #c2d1f2; }
+.tone-green { color: #166534; background: #dff0e2; border-color: #bfe0c6; }
+.tone-neutral { color: #4b5563; background: #edede9; border-color: #d9d9d2; }
+.tone-dark { color: #f3f4f6; background: #262a33; border-color: #262a33; }
+
+/* Form controls */
+.field-input {
+  width: 100%;
+  border: 1px solid var(--color-line);
+  background: #fff;
+  padding: 0.55rem 0.75rem;
+  font-size: 0.875rem;
+  border-radius: 0.375rem;
+  color: var(--color-ink);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.field-input:focus {
+  outline: none;
+  border-color: var(--color-pine);
+  box-shadow: 0 0 0 3px rgba(15, 94, 78, 0.14);
+}
+.field-input::placeholder {
+  color: #a9adb6;
+}
+
+/* Print styles for letters */
+@media print {
+  body {
+    background: #fff !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-page {
+    box-shadow: none !important;
+    border: none !important;
+    margin: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
