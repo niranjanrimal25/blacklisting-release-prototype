@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
-import { eq, or } from "drizzle-orm";
-import { db } from "@/db";
+import { eq, or } from "@/db";
+import { db, ensureReady } from "@/db";
 import { blacklistRecords, users } from "@/db/schema";
 import { getSessionUser } from "@/lib/session";
 import { NewCaseWizard } from "@/components/wizard";
@@ -10,6 +10,7 @@ export const dynamic = "force-dynamic";
 export default async function NewCasePage({ searchParams }: { searchParams: Promise<{ record?: string }> }) {
   const user = await getSessionUser();
   if (!user) redirect("/login");
+  await ensureReady();
   if (!user.role.startsWith("initiator")) redirect("/dashboard");
 
   const { record } = await searchParams;

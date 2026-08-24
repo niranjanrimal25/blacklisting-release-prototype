@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { ShieldCheck, ArrowRight, FileCheck2, GitBranch, Printer, Snowflake } from "lucide-react";
-import { db } from "@/db";
+import { db, ensureReady } from "@/db";
 import { users } from "@/db/schema";
 import { getSessionUser } from "@/lib/session";
 import { loginAs } from "@/app/actions";
@@ -12,6 +12,7 @@ const ORDER = ["initiator_branch", "initiator_npa", "initiator_csd", "reviewer_o
 
 export default async function LoginPage() {
   const existing = await getSessionUser();
+  await ensureReady();
   if (existing) redirect("/dashboard");
 
   const all = await db.select().from(users);

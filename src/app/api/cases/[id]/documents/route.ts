@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { eq } from "drizzle-orm";
-import { db } from "@/db";
+import { eq } from "@/db";
+import { db, ensureReady } from "@/db";
 import { releaseCases } from "@/db/schema";
 import { getSessionUser } from "@/lib/session";
 import { logEvent, saveDocument } from "@/lib/engine";
@@ -13,6 +13,7 @@ export async function POST(
   ctx: { params: Promise<{ id: string }> }
 ) {
   const user = await getSessionUser();
+  await ensureReady();
   if (!user) return NextResponse.json({ ok: false, error: "Session expired — sign in again." }, { status: 401 });
 
   const { id } = await ctx.params;

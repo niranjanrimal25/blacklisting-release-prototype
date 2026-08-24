@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { desc } from "drizzle-orm";
+import { desc } from "@/db";
 import { ArrowUpRight, Search, Snowflake, FilePlus2 } from "lucide-react";
-import { db } from "@/db";
+import { db, ensureReady } from "@/db";
 import { blacklistRecords, releaseCases } from "@/db/schema";
 import { getSessionUser } from "@/lib/session";
 import { redirect } from "next/navigation";
@@ -23,6 +23,7 @@ function recordStatusMeta(status: string) {
 export default async function RegisterPage({ searchParams }: { searchParams: Promise<{ q?: string }> }) {
   const user = await getSessionUser();
   if (!user) redirect("/login");
+  await ensureReady();
   const { q } = await searchParams;
   const query = (q ?? "").trim().toLowerCase();
 

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
-import { asc, eq } from "drizzle-orm";
+import { asc, eq } from "@/db";
 import {
   ArrowLeft,
   FileSignature,
@@ -11,7 +11,7 @@ import {
   Sparkles,
   CircleCheck,
 } from "lucide-react";
-import { db } from "@/db";
+import { db, ensureReady } from "@/db";
 import { blacklistRecords, caseDocuments, caseEvents, releaseCases, users } from "@/db/schema";
 import { getSessionUser } from "@/lib/session";
 import {
@@ -45,6 +45,7 @@ export default async function CasePage({
 }) {
   const user = await getSessionUser();
   if (!user) redirect("/login");
+  await ensureReady();
   const { id } = await params;
   const { created } = await searchParams;
   const caseId = Number(id);

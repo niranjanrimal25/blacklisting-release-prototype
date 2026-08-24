@@ -3,7 +3,7 @@
  * (letter generation, notifications, party-level release, auto-unfreeze)
  * lives here so routes and actions share one audited path.
  */
-import { db } from "@/db";
+import { db, ensureReady } from "@/db";
 import {
   blacklistRecords,
   caseDocuments,
@@ -13,7 +13,7 @@ import {
   users,
   type Party,
 } from "@/db/schema";
-import { and, eq, ne } from "drizzle-orm";
+import { and, eq, ne } from "@/db";
 import {
   RELEASE_TYPES,
   missingRequiredDocs,
@@ -44,6 +44,7 @@ export async function logEvent(e: {
   attachmentDocId?: number | null;
   meta?: Record<string, string>;
 }) {
+  await ensureReady();
   await db.insert(caseEvents).values({
     caseId: e.caseId,
     actorId: e.actor?.id ?? null,
@@ -59,17 +60,20 @@ export async function logEvent(e: {
 }
 
 export async function notify(userIds: string[], caseId: number, message: string) {
+  await ensureReady();
   const unique = Array.from(new Set(userIds.filter(Boolean)));
   if (!unique.length) return;
   await db.insert(notifications).values(unique.map((userId) => ({ userId, caseId, message })));
 }
 
 export async function cadUserIds(): Promise<string[]> {
+  await ensureReady();
   const rows = await db.select({ id: users.id }).from(users).where(eq(users.role, "cad"));
   return rows.map((r) => r.id);
 }
 
 export async function bropsUserIds(): Promise<string[]> {
+  await ensureReady();
   const rows = await db.select({ id: users.id }).from(users).where(eq(users.role, "brops"));
   return rows.map((r) => r.id);
 }
@@ -84,6 +88,7 @@ export async function saveDocument(opts: {
   source: "uploaded" | "carried" | "system";
   uploadedBy?: string | null;
 }): Promise<DocRow> {
+  await ensureReady();
   let fileName: string | null = null;
   let filePath: string | null = null;
   let mimeType: string | null = null;
@@ -147,6 +152,7 @@ export async function performCaseAction(
   action: ActionKey,
   payload: ActionPayload
 ): Promise<ActionResult> {
+  await ensureReady();
   const [kase] = await db.select().from(releaseCases).where(eq(releaseCases.id, caseId)).limit(1);
   if (!kase) return { ok: false, error: "Case not found." };
   const def = RELEASE_TYPES[kase.releaseType as ReleaseTypeKey];
@@ -392,6 +398,7 @@ export type NewCasePayload = {
 };
 
 export async function createCase(user: SessionUser, p: NewCasePayload): Promise<{ ok: boolean; error?: string; caseId?: number }> {
+  await ensureReady();
   const def = RELEASE_TYPES[p.releaseType];
   if (!def) return { ok: false, error: "Select a valid release type." };
 
@@ -479,6 +486,7 @@ export async function createCase(user: SessionUser, p: NewCasePayload): Promise<
 /* --------------------------------- lookup --------------------------------- */
 
 export async function lookupBlacklist(identifier: string) {
+  await ensureReady();
   const q = identifier.trim();
   if (!q) return null;
   const rows = await db.select().from(blacklistRecords);

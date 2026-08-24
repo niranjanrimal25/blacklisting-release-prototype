@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { desc } from "drizzle-orm";
+import { desc } from "@/db";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -10,7 +10,7 @@ import {
   ShieldCheck,
   Sparkles,
 } from "lucide-react";
-import { db } from "@/db";
+import { db, ensureReady } from "@/db";
 import { blacklistRecords, caseEvents, releaseCases } from "@/db/schema";
 import { getSessionUser } from "@/lib/session";
 import { redirect } from "next/navigation";
@@ -54,6 +54,7 @@ function myQueue(cases: (typeof releaseCases.$inferSelect)[], userId: string, ro
 export default async function DashboardPage() {
   const user = await getSessionUser();
   if (!user) redirect("/login");
+  await ensureReady();
 
   const [cases, records, events] = await Promise.all([
     db.select().from(releaseCases).orderBy(desc(releaseCases.updatedAt)),

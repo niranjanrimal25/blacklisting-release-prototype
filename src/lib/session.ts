@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
-import { db } from "@/db";
+import { db, ensureReady } from "@/db";
 import { users } from "@/db/schema";
-import { eq } from "drizzle-orm";
+import { eq } from "@/db";
 
 export type SessionUser = {
   id: string;
@@ -14,6 +14,7 @@ export type SessionUser = {
 const COOKIE = "dh_uid";
 
 export async function getSessionUser(): Promise<SessionUser | null> {
+  await ensureReady();
   const jar = await cookies();
   const id = jar.get(COOKIE)?.value;
   if (!id) return null;

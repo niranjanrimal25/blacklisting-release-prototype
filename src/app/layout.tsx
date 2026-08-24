@@ -1,23 +1,9 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { Fraunces, Inter, IBM_Plex_Mono, Great_Vibes } from "next/font/google";
 import "./globals.css";
 
-const fraunces = Fraunces({
-  subsets: ["latin"],
-  variable: "--font-fraunces",
-  axes: ["opsz"],
-});
-
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-
-const plex = IBM_Plex_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  variable: "--font-plex",
-});
-
-const script = Great_Vibes({ subsets: ["latin"], weight: "400", variable: "--font-script" });
+// Use system fonts to avoid Google Fonts network dependency at build time
+// Variables are kept for compatibility with existing Tailwind theme
 
 export const metadata: Metadata = {
   title: "DigiHost — Blacklisting Release Console",
@@ -27,7 +13,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className={`${fraunces.variable} ${inter.variable} ${plex.variable} ${script.variable}`}>
+    <html lang="en" className="font-sans">
       <body>{children}</body>
     </html>
   );

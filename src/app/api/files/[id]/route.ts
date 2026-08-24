@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
-import { eq } from "drizzle-orm";
+import { eq } from "@/db";
 import { readFile } from "fs/promises";
-import { db } from "@/db";
+import { db, ensureReady } from "@/db";
 import { caseDocuments } from "@/db/schema";
 import { getSessionUser } from "@/lib/session";
 
@@ -12,6 +12,7 @@ export async function GET(
   ctx: { params: Promise<{ id: string }> }
 ) {
   const user = await getSessionUser();
+  await ensureReady();
   if (!user) return NextResponse.json({ ok: false, error: "Unauthorized" }, { status: 401 });
 
   const { id } = await ctx.params;

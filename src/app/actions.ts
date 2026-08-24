@@ -2,8 +2,8 @@
 
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
-import { eq } from "drizzle-orm";
-import { db } from "@/db";
+import { eq } from "@/db";
+import { db, ensureReady } from "@/db";
 import { notifications } from "@/db/schema";
 import {
   clearSession,
@@ -57,6 +57,7 @@ export async function simpleCaseAction(caseId: number, action: ActionKey) {
 export async function markNotificationsRead() {
   const user: SessionUser | null = await getSessionUser();
   if (!user) return;
+  await ensureReady();
   await db.update(notifications).set({ read: true }).where(eq(notifications.userId, user.id));
   revalidatePath("/dashboard");
 }

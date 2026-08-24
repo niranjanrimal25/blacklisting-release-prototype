@@ -1,7 +1,7 @@
 import { notFound, redirect } from "next/navigation";
-import { eq } from "drizzle-orm";
+import { eq } from "@/db";
 import { ShieldCheck } from "lucide-react";
-import { db } from "@/db";
+import { db, ensureReady } from "@/db";
 import { releaseCases, users } from "@/db/schema";
 import { getSessionUser } from "@/lib/session";
 import { RELEASE_TYPES, fmtDate, fmtMoney, type ReleaseTypeKey } from "@/lib/workflow";
@@ -12,6 +12,7 @@ export const dynamic = "force-dynamic";
 export default async function LetterPage({ params }: { params: Promise<{ id: string }> }) {
   const user = await getSessionUser();
   if (!user) redirect("/login");
+  await ensureReady();
   const { id } = await params;
 
   const [kase] = await db.select().from(releaseCases).where(eq(releaseCases.id, Number(id))).limit(1);

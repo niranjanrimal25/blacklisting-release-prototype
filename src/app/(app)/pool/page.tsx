@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { and, desc, eq, isNull } from "drizzle-orm";
+import { and, desc, eq, isNull } from "@/db";
 import { ArrowRight, HandMetal, Inbox } from "lucide-react";
-import { db } from "@/db";
+import { db, ensureReady } from "@/db";
 import { releaseCases, users } from "@/db/schema";
 import { getSessionUser } from "@/lib/session";
 import { redirect } from "next/navigation";
@@ -14,6 +14,7 @@ export const dynamic = "force-dynamic";
 export default async function PoolPage() {
   const user = await getSessionUser();
   if (!user) redirect("/login");
+  await ensureReady();
 
   const pool = await db
     .select()

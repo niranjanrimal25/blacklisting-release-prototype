@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { redirect } from "next/navigation";
-import { and, desc, eq, isNull } from "drizzle-orm";
-import { db } from "@/db";
+import { and, desc, eq, isNull } from "@/db";
+import { db, ensureReady } from "@/db";
 import { notifications, releaseCases } from "@/db/schema";
 import { getSessionUser } from "@/lib/session";
 import { NotifBell, Sidebar } from "@/components/shell";
@@ -12,6 +12,7 @@ export const dynamic = "force-dynamic";
 export default async function AppLayout({ children }: { children: ReactNode }) {
   const user = await getSessionUser();
   if (!user) redirect("/login");
+  await ensureReady();
 
   const [notifs, pool] = await Promise.all([
     db.select().from(notifications).where(eq(notifications.userId, user.id)).orderBy(desc(notifications.createdAt)).limit(20),

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getSessionUser } from "@/lib/session";
 import { performCaseAction } from "@/lib/engine";
+import { ensureReady } from "@/db";
 import type { ActionKey } from "@/lib/workflow";
 
 export const dynamic = "force-dynamic";
@@ -10,6 +11,7 @@ export async function POST(
   ctx: { params: Promise<{ id: string }> }
 ) {
   const user = await getSessionUser();
+  await ensureReady();
   if (!user) return NextResponse.json({ ok: false, error: "Session expired — sign in again." }, { status: 401 });
 
   const { id } = await ctx.params;
