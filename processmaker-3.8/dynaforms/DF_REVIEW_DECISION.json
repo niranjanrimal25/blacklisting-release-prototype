@@ -1,0 +1,11 @@
+{
+  "name": "DF_REVIEW_DECISION",
+  "description": "Reviewer decision – Approve / Return / Query / Forward / Reject",
+  "fields": [
+    {"variable": "reviewDecision", "label": "Decision *", "type": "dropdown", "required": true, "options": ["APPROVE:Approve – Data and documents complete", "RETURN:Return for Rectification – Remarks mandatory", "QUERY:Raise Query – Remarks mandatory", "FORWARD:Forward to… – Select authority", "REJECT:Reject – Remarks mandatory, case closed"]},
+    {"variable": "reviewRemarks", "label": "Remarks *", "type": "textarea", "required": false, "hint": "Mandatory for Return/Query/Reject"},
+    {"variable": "forwardTo", "label": "Forward to *", "type": "dropdown", "options": "SELECT USR_UID, CONCAT(USR_FIRSTNAME,' ',USR_LASTNAME) FROM USERS", "visible": "@@reviewDecision == \"FORWARD\""},
+    {"variable": "caseSummary", "label": "Case Summary (read-only)", "type": "grid", "readOnly": true, "columns": [{"name":"field","label":"Field"},{"name":"value","label":"Value"}]}
+  ],
+  "javascript": "$('#reviewDecision').setOnchange(function(v){ if(v=='RETURN' || v=='QUERY' || v=='REJECT'){ $('#reviewRemarks').setRequired(true); } else { $('#reviewRemarks').setRequired(false); } if(v=='FORWARD'){ $('#forwardTo').setRequired(true); } else { $('#forwardTo').setRequired(false); } });"
+}

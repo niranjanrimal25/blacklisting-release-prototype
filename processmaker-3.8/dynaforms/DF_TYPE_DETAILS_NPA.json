@@ -1,0 +1,12 @@
+{
+  "name": "DF_TYPE_DETAILS_NPA",
+  "description": "RL-04 NPA Release details",
+  "fields": [
+    {"variable": "loanAccountNo", "label": "Loan account number *", "required": true},
+    {"variable": "outstandingAmount", "label": "Outstanding at blacklisting (NPR)", "type": "currency"},
+    {"variable": "settlementRef", "label": "LOS settlement / regularization reference *", "required": true, "hint": "Retrieve from LOS where integration available"},
+    {"variable": "regularizationDate", "label": "Regularization / settlement date *", "type": "datetime", "required": true},
+    {"variable": "settledAmount", "label": "Settled amount (NPR)", "type": "currency"},
+    {"variable": "basis", "label": "Release basis *", "type": "textarea", "required": true}
+  ]
+}

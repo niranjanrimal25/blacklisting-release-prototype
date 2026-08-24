@@ -1,0 +1,12 @@
+{
+  "name": "DF_CAD_VALIDATION",
+  "description": "CAD/CIC final validation – RELEASE, CAD_RETURN, CAD_QUERY, CIB_RETURNED, CIB_REPORTED, RESUME_VALIDATION",
+  "fields": [
+    {"variable": "cadDecision", "label": "CAD Decision *", "type": "dropdown", "required": true, "options": ["RELEASE:Release Blacklist – Final validation passed", "CAD_RETURN:Return (with attachment) – Attachment mandatory", "CAD_QUERY:Query (with attachment) – Attachment mandatory", "CIB_RETURNED:Returned by CIB – Attach CIB feedback", "CIB_REPORTED:Reported to CIB – Request Number + Remarks mandatory", "RESUME_VALIDATION:Resume Validation – After CIB return addressed"]},
+    {"variable": "cadRemarks", "label": "Remarks *", "type": "textarea", "hint": "Mandatory for Return/Query/Reject and CIB Reported"},
+    {"variable": "cibRequestNumber", "label": "CIB Request Number *", "type": "text", "visible": "@@cadDecision == \"CIB_REPORTED\"", "hint": "e.g., CIB-REQ-2026-0441"},
+    {"variable": "attachmentNote", "label": "Attachment mandatory at CAD level – upload via Input Document", "type": "label"},
+    {"variable": "unfreezeEligibility", "label": "Auto-unfreeze eligibility (auto)", "type": "text", "readOnly": true, "hint": "Single code 002/025/100 eligible only after release"}
+  ],
+  "javascript": "$('#cadDecision').setOnchange(function(v){ if(v=='CAD_RETURN' || v=='CAD_QUERY'){ $('#cadRemarks').setRequired(true); } if(v=='CIB_REPORTED'){ $('#cibRequestNumber').setRequired(true); $('#cadRemarks').setRequired(true); } });"
+}

@@ -1,0 +1,13 @@
+{
+  "name": "DF_TYPE_DETAILS_COURT",
+  "description": "RL-03 Court Release details",
+  "fields": [
+    {"variable": "courtName", "label": "Court name *", "required": true},
+    {"variable": "courtLetterRef", "label": "Court letter / order reference *", "required": true},
+    {"variable": "courtOrderDate", "label": "Court order date *", "type": "datetime", "required": true},
+    {"variable": "legalConsentRef", "label": "Legal Department consent reference *", "required": true, "hint": "Consent/approval doc must be uploaded"},
+    {"variable": "bocApprovalRef", "label": "BOC approval reference *", "required": true},
+    {"variable": "chequeNumber", "label": "Cheque number (where applicable)"},
+    {"variable": "basis", "label": "Release basis *", "type": "textarea", "required": true}
+  ]
+}

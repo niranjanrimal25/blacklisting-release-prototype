@@ -1,0 +1,12 @@
+{
+  "name": "DF_TYPE_DETAILS_PARTIAL",
+  "description": "RL-05 Partial Release – Guarantor only",
+  "fields": [
+    {"variable": "borrowerName", "label": "Borrower (remains blacklisted) *", "required": true},
+    {"variable": "guarantorName", "label": "Guarantor to be released *", "required": true},
+    {"variable": "guarantorSettlementAmount", "label": "Guarantor settlement amount (NPR) *", "type": "currency", "required": true},
+    {"variable": "nrrcMinuteRef", "label": "NRRC minute reference *", "required": true, "hint": "NPA Recovery and Regularization Committee minute"},
+    {"variable": "nrrcDate", "label": "NRRC minute date", "type": "datetime"},
+    {"variable": "basis", "label": "Release basis *", "type": "textarea", "required": true}
+  ]
+}

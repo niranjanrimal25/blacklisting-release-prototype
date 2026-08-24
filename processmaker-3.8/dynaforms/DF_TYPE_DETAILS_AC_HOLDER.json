@@ -1,0 +1,14 @@
+{
+  "name": "DF_TYPE_DETAILS_AC_HOLDER",
+  "description": "RL-02 Ac Holder Cheque details",
+  "fields": [
+    {"variable": "chequeNumber", "label": "Cheque number *", "required": true},
+    {"variable": "chequeAmount", "label": "Cheque amount (NPR) *", "type": "currency", "required": true},
+    {"variable": "chequeDate", "label": "Cheque date *", "type": "datetime", "required": true},
+    {"variable": "payeeName", "label": "Payee / beneficiary name *", "required": true},
+    {"variable": "balanceConfirm", "label": "Sufficient balance (cheque amount + charges) is maintained for encashment *", "type": "checkbox", "required": true, "options": ["yes:Confirmed"]},
+    {"variable": "lienInfo", "label": "Lien", "type": "label", "value": "Applied automatically in the name of the payee for required balance"},
+    {"variable": "chargeDebit", "label": "Charges to debit from account holder (NPR) *", "type": "currency", "required": true},
+    {"variable": "basis", "label": "Release basis *", "type": "textarea", "required": true}
+  ]
+}

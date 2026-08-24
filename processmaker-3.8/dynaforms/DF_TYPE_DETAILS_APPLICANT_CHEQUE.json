@@ -1,0 +1,13 @@
+{
+  "name": "DF_TYPE_DETAILS_APPLICANT_CHEQUE",
+  "description": "RL-01 Applicant Cheque details",
+  "fields": [
+    {"variable": "chequeNumber", "label": "Cheque number *", "required": true, "placeholder": "e.g., 223145"},
+    {"variable": "chequeAmount", "label": "Cheque amount (NPR) *", "type": "currency", "required": true},
+    {"variable": "chequeDate", "label": "Cheque date *", "type": "datetime", "required": true},
+    {"variable": "payeeName", "label": "Payee / beneficiary name *", "required": true},
+    {"variable": "issuingBranch", "label": "Issuing branch"},
+    {"variable": "chargeMdr", "label": "Blacklist release charge collected (NPR) *", "type": "currency", "required": true, "hint": "Attach MDR copy as evidence"},
+    {"variable": "basis", "label": "Release basis / justification *", "type": "textarea", "required": true, "hint": "Summarise why blacklisting should be released"}
+  ]
+}

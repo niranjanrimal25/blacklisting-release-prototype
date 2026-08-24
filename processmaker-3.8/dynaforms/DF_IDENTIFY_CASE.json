@@ -1,0 +1,109 @@
+{
+  "name": "DF_IDENTIFY_CASE",
+  "description": "Identify blacklisted case – DigiHost auto-population + manual fallback",
+  "fields": [
+    {
+      "type": "text",
+      "variable": "searchIdentifier",
+      "label": "Case Number / CIF ID / Blacklist Number / Party Name",
+      "placeholder": "e.g., DH-2025-03417 · CIF-786541 · BLK-2025-01121",
+      "required": false,
+      "hint": "Case Number is primary retrieval key"
+    },
+    {
+      "type": "button",
+      "label": "Retrieve from DigiHost",
+      "action": "TRG_LOOKUP_BLACKLIST"
+    },
+    {
+      "type": "checkbox",
+      "variable": "manualMode",
+      "label": "Switch to manual entry fallback",
+      "options": ["Yes"]
+    },
+    {
+      "type": "title",
+      "label": "Retrieved Record (auto-populated)"
+    },
+    {
+      "type": "text",
+      "variable": "partyName",
+      "label": "Party Name",
+      "required": true,
+      "readOnly": true
+    },
+    {
+      "type": "dropdown",
+      "variable": "partyType",
+      "label": "Party Type",
+      "options": ["individual:Individual", "entity:Entity / Company"],
+      "required": true
+    },
+    {
+      "type": "text",
+      "variable": "cifId",
+      "label": "CIF ID",
+      "required": true
+    },
+    {
+      "type": "text",
+      "variable": "blacklistNumber",
+      "label": "Blacklist Number",
+      "required": true
+    },
+    {
+      "type": "text",
+      "variable": "caseNumber",
+      "label": "DigiHost Case Number",
+      "readOnly": true
+    },
+    {
+      "type": "text",
+      "variable": "accountNumber",
+      "label": "Account Number"
+    },
+    {
+      "type": "dropdown",
+      "variable": "category",
+      "label": "Category",
+      "options": ["cheque:Cheque", "npa:NPA"]
+    },
+    {
+      "type": "text",
+      "variable": "freezeCodes",
+      "label": "Freeze Reason Codes (comma or JSON)",
+      "hint": "e.g., 002 or [\"002\"] – auto-unfreeze eligible only for single 002/025/100"
+    },
+    {
+      "type": "textarea",
+      "variable": "blacklistReason",
+      "label": "Blacklisting Reason"
+    },
+    {
+      "type": "grid",
+      "variable": "priorDocs",
+      "label": "Prior-process documents (carried forward)",
+      "columns": [
+        {"name": "name", "label": "Document Name"},
+        {"name": "note", "label": "File Reference"}
+      ],
+      "readOnly": true
+    },
+    {
+      "type": "panel",
+      "label": "Manual Entry Fallback",
+      "visible": "@@manualMode == \"Yes\"",
+      "fields": [
+        {"variable": "manualPartyName", "label": "Party Name *", "required": true},
+        {"variable": "manualPartyType", "label": "Party Type", "type": "dropdown", "options": ["individual","entity"]},
+        {"variable": "manualCifId", "label": "CIF ID *", "required": true},
+        {"variable": "manualBlacklistNumber", "label": "Blacklist Number *", "required": true},
+        {"variable": "manualAccountNumber", "label": "Account Number"},
+        {"variable": "manualCategory", "label": "Category", "type": "dropdown", "options": ["cheque","npa"]},
+        {"variable": "manualFreezeCode", "label": "Freeze Code", "type": "dropdown", "options": ["002","025","100","101","003"]},
+        {"variable": "manualReason", "label": "Reason"}
+      ]
+    }
+  ],
+  "javascript": "function showManual() { if ($('#manualMode').getValue()=='Yes') { $('#manualPanel').show(); } else { $('#manualPanel').hide(); } } $('#manualMode').setOnchange(showManual);"
+}

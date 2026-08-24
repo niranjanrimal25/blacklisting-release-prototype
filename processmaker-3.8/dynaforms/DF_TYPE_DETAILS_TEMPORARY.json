@@ -1,0 +1,13 @@
+{
+  "name": "DF_TYPE_DETAILS_TEMPORARY",
+  "description": "RL-06 Temporary Release – 6 months",
+  "fields": [
+    {"variable": "emiAmount", "label": "EMI amount per plan (NPR) *", "type": "currency", "required": true},
+    {"variable": "emiCount", "label": "Number of EMIs in plan", "type": "text"},
+    {"variable": "planStartDate", "label": "Payment plan start date *", "type": "datetime", "required": true},
+    {"variable": "periodMonths", "label": "Temporary release period", "type": "label", "value": "6 months — based on EMI payment plan"},
+    {"variable": "committeeMinuteRef", "label": "Board / committee minute reference *", "required": true},
+    {"variable": "chargeTemp", "label": "Temporary release charge (NPR) *", "type": "currency", "required": true, "hint": "Charges field is mandatory for temporary release"},
+    {"variable": "basis", "label": "Release basis *", "type": "textarea", "required": true}
+  ]
+}

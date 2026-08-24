@@ -1,0 +1,49 @@
+<html>
+<head>
+<style>
+  body { font-family: Arial, sans-serif; font-size: 12px; }
+  .header { border-bottom: 2px solid #0a3f35; padding-bottom: 10px; display:flex; justify-content:space-between; }
+  .badge { background:#0f5e4e; color:white; padding:6px 12px; border-radius:6px; }
+  table { width:100%; border-collapse:collapse; margin-top:12px; font-size:11px; }
+  td { border:1px solid #ccc; padding:6px; }
+  td.label { width:180px; background:#efeadf; font-weight:bold; text-transform:uppercase; font-size:10px; }
+  .outcome { margin-top:16px; padding:12px; border:1px solid #0f5e4e; background:#0f5e4e0d; }
+</style>
+</head>
+<body>
+<div class="header">
+  <div><div style="font-size:18px; font-weight:bold;">Final Blacklist Release Document</div><div style="font-size:10px; text-transform:uppercase;">Provided by CAD/CIC · System record</div></div>
+  <div style="font-family:monospace; font-size:11px;">@#reference<br/>@#releasedAt</div>
+</div>
+
+<div style="margin-top:16px; border:1px solid #0f5e4e; background:#0f5e4e0d; padding:12px; display:flex; gap:12px;">
+  <div style="font-size:20px;">✓</div>
+  <div><div style="font-weight:bold;">Blacklist release completed</div><div style="font-size:11px;">Final CAD/CIC validation passed; release executed in-system.</div></div>
+</div>
+
+<table>
+  <tr><td class="label">Party</td><td>@#partyName (@#partyType)</td></tr>
+  <tr><td class="label">CIF ID</td><td>@#cifId</td></tr>
+  <tr><td class="label">Blacklist number</td><td>@#blacklistNumber</td></tr>
+  <tr><td class="label">Release type</td><td>@#releaseTypeLabel</td></tr>
+  <tr><td class="label">Account number</td><td>@#accountNumber</td></tr>
+  <tr><td class="label">Freeze codes</td><td>@#freezeCodes</td></tr>
+  <tr><td class="label">Released at</td><td>@#releasedAt</td></tr>
+  <tr><td class="label">Released by</td><td>@#cadOfficerName</td></tr>
+  <tr><td class="label">Partial release</td><td>Guarantor @#guarantorName released – borrower @#borrowerName remains blacklisted</td></tr>
+  <tr><td class="label">Temporary period</td><td>Six (6) months from release date, EMI plan</td></tr>
+</table>
+
+<div class="outcome">
+  <div style="font-size:10px; font-weight:bold; text-transform:uppercase;">Account unfreezing outcome</div>
+  <div style="margin-top:6px;">@#unfreezeLog</div>
+  <div style="margin-top:8px; font-size:10px; color:#666;">Control note: automatic unfreezing only after successful CAD/CIC release and only where account carries single freeze reason code 002, 025 or 100.</div>
+</div>
+
+<div style="margin-top:30px; display:flex; justify-content:space-between;">
+  <div style="border-top:1px solid #333; font-size:10px; padding-top:4px;">Initiator acknowledgement – final document downloaded</div>
+  <div style="text-align:center;"><div style="font-family:cursive; font-size:24px;">CAD/CIC Officer</div><div style="border-top:1px solid #333; font-size:10px; padding-top:4px;">Credit Administration / CIC – digitally executed</div></div>
+</div>
+
+</body>
+</html>

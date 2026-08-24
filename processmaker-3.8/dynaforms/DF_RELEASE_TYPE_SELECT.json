@@ -1,0 +1,47 @@
+{
+  "name": "DF_RELEASE_TYPE_SELECT",
+  "description": "Select one of six release types",
+  "fields": [
+    {
+      "type": "radio",
+      "variable": "releaseType",
+      "label": "Release Type *",
+      "required": true,
+      "options": [
+        "applicant_cheque:RL-01 By Applicant – By Cheque (Pool Eligible, Letter on Initiator)",
+        "ac_holder_cheque:RL-02 By A/C Holder – By Cheque (Pool Eligible, Letter on Initiator)",
+        "court:RL-03 Court Release – By Branch/NPA (Pool Eligible, Letter on Initiator)",
+        "npa:RL-04 NPA Release – By NPA (Letter on CAD screen)",
+        "partial:RL-05 Partial Release – Guarantor only (Letter on CAD, borrower remains)",
+        "temporary:RL-06 Temporary Release – 6 months EMI plan (Letter on CAD)"
+      ]
+    },
+    {
+      "type": "textarea",
+      "variable": "releaseTypeDescription",
+      "label": "Description (auto)",
+      "readOnly": true
+    },
+    {
+      "type": "dropdown",
+      "variable": "routeMode",
+      "label": "Reviewing Authority Routing *",
+      "required": true,
+      "options": [
+        "pool:BROPs Pool – Branch Operations Control (claim before review) – only for cheque types",
+        "oi:Reviewer – Operation In-charge (OI)",
+        "bm:Reviewer – Branch Manager (BM)",
+        "brops_direct:Reviewer – BROPs Analyst (direct)"
+      ],
+      "hint": "Select per reporting structure: BOC-reporting branch → BROPs Pool"
+    },
+    {
+      "type": "dropdown",
+      "variable": "reviewerId",
+      "label": "Specific Reviewer (if not pool)",
+      "options": "SELECT USR_UID, CONCAT(USR_FIRSTNAME,' ',USR_LASTNAME) FROM USERS",
+      "visible": "@@routeMode != \"pool\""
+    }
+  ],
+  "javascript": "var descs = {applicant_cheque: 'Release initiated by payee/applicant on basis of cheque. Letter auto-generated after review; initiator signs.', ac_holder_cheque: 'Release by account holder. Sufficient balance + lien applied automatically.', court: 'Court order release: branch → Legal consent → BOC approval → BROPs → CAD.', npa: 'Full release after loan regularization/settlement. LOS evidence, CAD generates letter.', partial: 'Guarantor only released, borrower remains blacklisted. Party-level outcome.', temporary: '6 months only based on EMI plan. Charges mandatory.'}; $('#releaseType').setOnchange(function(v){ $('#releaseTypeDescription').setValue(descs[v]||''); var chequeTypes=['applicant_cheque','ac_holder_cheque','court']; if(chequeTypes.indexOf(v)==-1){ $('#routeMode').setValue('bm'); } });"
+}
