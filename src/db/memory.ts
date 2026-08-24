@@ -152,12 +152,11 @@ function getTableKey(table: any): string {
   if (mapped) return mapped;
   if (!table || typeof table !== "object") return "";
   const keys = Object.keys(table);
-  if (keys.includes("blacklistNumber") && keys.includes("cifId")) return "blacklist_records";
+  // Robust detection ignoring enableRLS and other drizzle internals
+  if (keys.includes("blacklistNumber")) return "blacklist_records";
   if (keys.includes("reference") && keys.includes("releaseType")) return "release_cases";
-  if (keys.includes("requirementKey") && keys.includes("caseId")) {
-    if (keys.includes("label") && keys.includes("fileName")) return "case_documents";
-    if (keys.includes("action") && keys.includes("actorName")) return "case_events";
-  }
+  if (keys.includes("requirementKey")) return "case_documents";
+  if (keys.includes("action") && keys.includes("actorName")) return "case_events";
   if (keys.includes("message") && keys.includes("userId")) return "notifications";
   if (keys.includes("role") && keys.includes("unit")) return "users";
   if (keys.includes("id") && keys.includes("name") && keys.includes("role")) return "users";
