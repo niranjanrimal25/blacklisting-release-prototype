@@ -146,6 +146,40 @@ function getJsKey(col: any): string {
   return map.get(col) || col?.name || "";
 }
 
+function toCamel(s: string): string {
+  return s.replace(/_([a-z])/g, (_, c) => c.toUpperCase());
+}
+
+function getPossibleKeys(col: any): string[] {
+  const keys: string[] = [];
+  const jsKey = getJsKey(col);
+  if (jsKey) keys.push(jsKey);
+  const dbName = col?.name;
+  if (dbName) {
+    keys.push(dbName);
+    const camel = toCamel(dbName);
+    if (camel !== dbName) keys.push(camel);
+  }
+  // Also try direct column key if it's string
+  if (typeof col === "string") keys.push(col);
+  return [...new Set(keys.filter(Boolean))];
+}
+
+function getRowValue(row: Row, col: any): any {
+  const possible = getPossibleKeys(col);
+  for (const k of possible) {
+    if (row[k] !== undefined) return row[k];
+  }
+  // Fallback: try case-insensitive
+  for (const k of possible) {
+    const lower = k.toLowerCase();
+    for (const rk of Object.keys(row)) {
+      if (rk.toLowerCase() === lower) return row[rk];
+    }
+  }
+  return undefined;
+}
+
 function getTableKey(table: any): string {
   const map = getTableMap();
   const mapped = map.get(table);
@@ -195,30 +229,24 @@ function cloneRow(row: Row): Row {
   return out;
 }
 
-// Predicate helpers
+// Predicate helpers - robust: tries jsKey, dbName, camelCase
 export function eq(col: any, value: any) {
-  const jsKey = getJsKey(col);
-  const dbName = col?.name;
   return (row: Row) => {
-    const v = jsKey && row[jsKey] !== undefined ? row[jsKey] : dbName ? row[dbName] : undefined;
+    const v = getRowValue(row, col);
     return v === value;
   };
 }
 
 export function ne(col: any, value: any) {
-  const jsKey = getJsKey(col);
-  const dbName = col?.name;
   return (row: Row) => {
-    const v = jsKey && row[jsKey] !== undefined ? row[jsKey] : dbName ? row[dbName] : undefined;
+    const v = getRowValue(row, col);
     return v !== value;
   };
 }
 
 export function isNull(col: any) {
-  const jsKey = getJsKey(col);
-  const dbName = col?.name;
   return (row: Row) => {
-    const v = jsKey && row[jsKey] !== undefined ? row[jsKey] : dbName ? row[dbName] : undefined;
+    const v = getRowValue(row, col);
     return v === null || v === undefined;
   };
 }
@@ -290,11 +318,9 @@ class SelectBuilder {
         const sort = this.sort;
         const col = sort.col;
         const dir = sort.dir;
-        const jsKey = getJsKey(col);
-        const dbName = col?.name;
         rows.sort((a: Row, b: Row) => {
-          const av = jsKey && a[jsKey] !== undefined ? a[jsKey] : dbName ? a[dbName] : undefined;
-          const bv = jsKey && b[jsKey] !== undefined ? b[jsKey] : dbName ? b[dbName] : undefined;
+          const av = getRowValue(a, col);
+          const bv = getRowValue(b, col);
           if (av === bv) return 0;
           if (av === null || av === undefined) return 1;
           if (bv === null || bv === undefined) return -1;
@@ -309,9 +335,7 @@ class SelectBuilder {
         const projected = rows.map((row) => {
           const out: Row = {};
           for (const [alias, col] of Object.entries(this.fields)) {
-            const jsKey = getJsKey(col as any);
-            const dbName = (col as any)?.name;
-            const val = jsKey && row[jsKey] !== undefined ? row[jsKey] : dbName ? row[dbName] : undefined;
+            const val = getRowValue(row, col as any);
             out[alias] = val;
           }
           return out;
