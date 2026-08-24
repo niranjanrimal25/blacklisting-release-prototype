@@ -1,10 +1,10 @@
-import { redirect } from "next/navigation";
 import { ShieldCheck, ArrowRight, FileCheck2, GitBranch, Printer, Snowflake } from "lucide-react";
 import { db, ensureReady } from "@/db";
 import { users } from "@/db/schema";
 import { getSessionUser } from "@/lib/session";
 import { loginAs } from "@/app/actions";
 import { roleLabel } from "@/lib/workflow";
+import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
@@ -13,7 +13,6 @@ const ORDER = ["initiator_branch", "initiator_npa", "initiator_csd", "reviewer_o
 export default async function LoginPage() {
   const existing = await getSessionUser();
   await ensureReady();
-  if (existing) redirect("/dashboard");
 
   const all = await db.select().from(users);
   const sorted = all.sort((a, b) => ORDER.indexOf(a.role) - ORDER.indexOf(b.role));
@@ -33,7 +32,7 @@ export default async function LoginPage() {
         </div>
 
         <div>
-          <div className="font-mono text-[10px] uppercase tracking-[0.28em] text-gold">Standard Operating Procedure · Cheque &amp; NPA</div>
+          <div className="font-mono text-[10px] uppercase tracking-[0.28em] text-gold">Standard Operating Procedure - Cheque & NPA</div>
           <h1 className="mt-5 font-display text-[44px] font-medium leading-[1.06] tracking-tight text-white">
             The blacklisting release process,
             <span className="text-goldsoft"> end to end in one system.</span>
@@ -65,7 +64,7 @@ export default async function LoginPage() {
         </div>
 
         <div className="font-mono text-[9.5px] uppercase tracking-[0.2em] text-white/30">
-          Demo environment · Seeded operational data · PostgreSQL-backed workflow
+          Demo environment - Seeded operational data - In-memory workflow
         </div>
       </div>
 
@@ -73,13 +72,37 @@ export default async function LoginPage() {
       <div className="paper-grain flex flex-1 items-center justify-center px-6 py-12">
         <div className="w-full max-w-xl">
           <div className="mb-8 lg:hidden">
-            <div className="font-display text-2xl font-semibold text-ink">DigiHost — Blacklist Release</div>
+            <div className="font-display text-2xl font-semibold text-ink">DigiHost - Blacklist Release</div>
           </div>
+
+          {existing && (
+            <div className="mb-6 rounded-lg border border-pine/30 bg-pine/5 px-4 py-3 flex items-center justify-between">
+              <div className="text-[12px] text-pinedeep">
+                <span className="font-semibold">Currently logged in as {existing.name}</span> ({roleLabel(existing.role)}) — continue to dashboard or switch role below.
+              </div>
+              <Link href="/dashboard" className="ml-3 inline-flex items-center gap-1 rounded-md bg-pine px-3 py-1.5 text-[11px] font-medium text-white hover:bg-pinedeep">Go to Dashboard</Link>
+            </div>
+          )}
+
           <div className="font-mono text-[10px] uppercase tracking-[0.28em] text-gold">Sign in to the console</div>
           <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-ink">Choose your operating role</h2>
           <p className="mt-2 text-[13px] leading-relaxed text-ink2">
             The workflow routes each case by role. Pick a demo identity below — you can switch roles at any time from the sidebar.
           </p>
+
+          <div className="mt-4 rounded-lg border border-line bg-card p-4 text-[12px]">
+            <div className="font-bold text-ink">How to start a case (Blacklisting Release):</div>
+            <ol className="mt-2 list-decimal list-inside space-y-1 text-ink2">
+              <li>Login as <strong>Initiator</strong> — Branch (Asha Rai), NPA (Deepak), or CSD (Mira)</li>
+              <li>Dashboard → <strong>Start blacklisting release</strong> (or Cases → New)</li>
+              <li>Identify: Enter Case No <span className="font-mono">DH-2025-03417</span>, CIF, or Blacklist No → Retrieve (auto-population)</li>
+              <li>Release Type: Choose 1 of 6 — RL-01 Applicant Cheque is the main blacklisting release</li>
+              <li>Fill type-specific fields + select Reviewer (OI/BM) or BROPs Pool</li>
+              <li>Create → Draft → Upload all mandatory docs (green Complete) → <strong>Proceed – Submit to Reviewer</strong></li>
+              <li>Login as Reviewer/BROPs → Approve/Return/Query → Letter stage → CAD Release</li>
+            </ol>
+            <div className="mt-2 text-[11px] text-ink3">All cases are in-memory (.memory-data.json) — no DB config. Use Dashboard → Demo data controls to clean.</div>
+          </div>
 
           <div className="mt-8 space-y-2">
             {sorted.map((u, i) => (
@@ -105,6 +128,11 @@ export default async function LoginPage() {
                 </button>
               </form>
             ))}
+          </div>
+
+          <div className="mt-6 flex gap-2">
+            <Link href="/designer" className="inline-flex items-center gap-2 rounded-md border border-line bg-white px-3 py-2 text-[11px] font-medium text-ink hover:bg-paper2">View Flow Diagram (Designer)</Link>
+            <Link href="/pm38" className="inline-flex items-center gap-2 rounded-md bg-[#2c3e50] px-3 py-2 text-[11px] font-medium text-white hover:bg-[#1a252f]">PM 3.8 Style Prototype</Link>
           </div>
         </div>
       </div>

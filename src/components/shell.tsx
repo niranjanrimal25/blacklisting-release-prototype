@@ -13,6 +13,8 @@ import {
   ShieldCheck,
   UserRound,
   UsersRound,
+  DraftingCompass,
+  Monitor,
 } from "lucide-react";
 import { logout, markNotificationsRead } from "@/app/actions";
 import { roleLabel } from "@/lib/workflow";
@@ -25,6 +27,8 @@ const NAV = [
   { href: "/cases/new", label: "New Release Case", icon: FilePlus2 },
   { href: "/pool", label: "BROPs Pool", icon: Inbox },
   { href: "/register", label: "Blacklist Register", icon: Layers },
+  { href: "/designer", label: "Designer – Flow Diagram", icon: DraftingCompass },
+  { href: "/pm38", label: "PM 3.8 Style (Classic)", icon: Monitor },
 ];
 
 export function Sidebar({ user, poolCount }: { user: NavUser; poolCount: number }) {
