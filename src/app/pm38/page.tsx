@@ -55,9 +55,9 @@ export default async function Pm38InboxPage({ searchParams }: { searchParams: Pr
       {/* Classic PM 3.8 toolbar */}
       <div className="bg-[#f2f3f4] border-b border-[#bdc3c7] px-3 py-2 flex items-center gap-2 text-[11px]">
         <span className="font-bold text-[#2c3e50]">Process:</span>
-        <select className="border border-[#bdc3c7] px-2 py-1 bg-white text-[11px]">
+        <select defaultValue="Blacklisting Release Full SOP" className="border border-[#bdc3c7] px-2 py-1 bg-white text-[11px]">
           <option>All Processes</option>
-          <option selected>Blacklisting Release Full SOP</option>
+          <option>Blacklisting Release Full SOP</option>
         </select>
         <span className="ml-4 font-bold text-[#2c3e50]">Search:</span>
         <input className="border border-[#bdc3c7] px-2 py-1 w-48 text-[11px]" placeholder="Case #, CIF, Blacklist No..." />
