@@ -23,6 +23,7 @@ import {
   type StatusKey,
 } from "@/lib/workflow";
 import { Card, EmptyState, StatusPill, UserChip } from "@/components/ui";
+import { AdminActions } from "@/components/admin-actions";
 
 export const dynamic = "force-dynamic";
 
@@ -225,6 +226,8 @@ export default async function DashboardPage() {
               ))}
             </ol>
           </Card>
+
+          <AdminActions myCount={cases.filter((c:any)=>c.initiatorId===user.id).length} totalCount={cases.length} />
         </div>
       </div>
     </div>
